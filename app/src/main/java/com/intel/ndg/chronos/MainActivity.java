@@ -19,6 +19,7 @@ import com.blesh.sdk.models.BleshTemplateResult;
 public class MainActivity extends ActionBarActivity {
 
     private Intent mBlesh = null;
+    private Intent mUserProfile = null;
     private static final String TAG = "Main Activity:";
     private static final int REQUEST_ENABLE_BT = 0;
 
@@ -80,17 +81,16 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_profile:
+                editProfile();
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -123,7 +123,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void stopBlesh() {
-        //Log.i(TAG, "stopBlesh");
-        //stopService(mBlesh);
+        Log.i(TAG, "stopBlesh");
+        stopService(mBlesh);
+    }
+
+    private void editProfile() {
+        Log.i(TAG, "editProfile");
+        mUserProfile = new Intent(this, UserProfileActivity.class);
+        startActivity(mUserProfile);
     }
 }

@@ -13,5 +13,6 @@
     <color name="white">#ffffffff</color>
     <color name="yellow">#ffffff00</color>
     <color name="orange">#ffa500</color>
+    <color name="beige">#F5F1DE</color>
 
 </resources>

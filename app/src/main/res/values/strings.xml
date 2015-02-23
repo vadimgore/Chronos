@@ -17,6 +17,16 @@
         <item>Personal guidance</item>
     </string-array>
 
+    <string-array name="watchface_shape_choices">
+        <item>Round</item>
+        <item>Square</item>
+    </string-array>
+
+    <string-array name="watchface_type_choices">
+        <item>Analog</item>
+        <item>Chronograph</item>
+    </string-array>
+
     <string name="edit_profile_action_label">Profile</string>
 
 </resources>

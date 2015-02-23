@@ -7,7 +7,8 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/beige">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -15,48 +16,58 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Style Goals"
+                android:text="STYLE GOALS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="50px"
-                android:textColor="@color/red"
-                android:textSize="70px" >
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="@color/gray">
             </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray"/>
 
             <SeekBar android:id="@+id/seekBar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:max="2"/>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:text="being cool"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="50px"
-                    android:textColor="@color/blue"
-                    android:textSize="50px"/>
 
                 <TextView
                     android:text="being interesting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50px"
-                    android:textColor="@color/blue"
-                    android:textSize="50px"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
 
+                <TextView
+                    android:text="being cool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </RelativeLayout>
 
             <SeekBar android:id="@+id/seekBar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:max="2"/>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,22 +76,22 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="being noticed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="50px"
-                    android:textColor="@color/blue"
-                    android:textSize="50px"/>
-
-                <TextView
                     android:text="being ignored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="being noticed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="50px"
-                    android:textColor="@color/blue"
-                    android:textSize="50px"/>
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </RelativeLayout>
 
             <TextView
@@ -199,8 +210,9 @@
                     android:textColor="@color/blue"
                     android:textSize="50px"/>
             </RelativeLayout>
+
             <TextView
-                android:text="Usage Pattern"
+                android:text="Timepiece Usage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -245,6 +257,71 @@
                     android:textColor="@color/blue"
                     android:textSize="50px"/>
             </RelativeLayout>
+
+            <TextView
+                android:text="Timepiece Materials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="50px"
+                android:textColor="@color/red"
+                android:textSize="70px" >
+            </TextView>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <CheckBox android:id="@+id/checkbox_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="gold"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_titan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="titan"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_diamonds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="diamonds"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_leather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="leather"
+                    android:onClick="onCheckboxClicked"/>
+            </LinearLayout>
+
+            <TextView
+                android:text="Watch Face"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="50px"
+                android:textColor="@color/red"
+                android:textSize="70px" >
+            </TextView>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Spinner
+                    android:id="@+id/watchface_shape_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/watchface_shape_choices"/>
+
+                <Spinner
+                    android:id="@+id/watchface_type_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/watchface_type_choices"/>
+
+            </LinearLayout>
 
             <TextView
                 android:text="Wrist Size"

@@ -4,17 +4,35 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+class SpinnerItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("Spinner:onItemSelected", parent.getItemAtPosition(position).toString());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.i("Spinner:onNothingSelected", " called");
+    }
+}
 
 public class UserProfileActivity extends ActionBarActivity {
     private static final String TAG = "User Profile Activity:";
+    private final Timepiece mTimepiece = new Timepiece();
     SeekBar mSeekBar1;
     SeekBar mSeekBar2;
     SeekBar mSeekBar3;
@@ -22,6 +40,8 @@ public class UserProfileActivity extends ActionBarActivity {
     SeekBar mSeekBar5;
     SeekBar mSeekBar6;
     SeekBar mSeekBar7;
+    Spinner mWatchfaceShapeSpinner;
+    Spinner mWatchfaceTypeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +57,11 @@ public class UserProfileActivity extends ActionBarActivity {
         mSeekBar5 = (SeekBar) findViewById(R.id.seekBar5);
         mSeekBar6 = (SeekBar) findViewById(R.id.seekBar6);
         mSeekBar7 = (SeekBar) findViewById(R.id.seekBar7);
+
+        mWatchfaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
+        mWatchfaceShapeSpinner.setOnItemSelectedListener(new SpinnerItemSelectedListener());
+
+        mWatchfaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
 
         restoreProfile();
     }
@@ -72,6 +97,41 @@ public class UserProfileActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_gold:
+                if (checked)
+                    mTimepiece.addMaterial("gold");
+                else
+                    mTimepiece.removeMaterial("gold");
+                break;
+            case R.id.checkbox_titan:
+                if (checked)
+                    mTimepiece.addMaterial("titan");
+                else
+                    mTimepiece.removeMaterial("titan");
+                break;
+            case R.id.checkbox_diamonds:
+                if (checked)
+                    mTimepiece.addMaterial("diamonds");
+                else
+                    mTimepiece.removeMaterial("diamonds");
+                break;
+            case R.id.checkbox_leather:
+                if (checked)
+                    mTimepiece.addMaterial("leather");
+                else
+                    mTimepiece.removeMaterial("leather");
+                break;
+            default:
+                break;
+        }
     }
 
     private void saveProfile() {

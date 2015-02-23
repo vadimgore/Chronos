@@ -1,9 +1,16 @@
 package com.intel.ndg.chronos;
 
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.RemoteInput;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +30,9 @@ public class MainActivity extends ActionBarActivity {
     private static final String TAG = "Main Activity:";
     private static final int REQUEST_ENABLE_BT = 0;
 
+    // Key for the string that's delivered in the action's intent
+    private static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         BleshTemplateResult result = new BleshTemplateResult() {
             @Override
             public void bleshTemplateResultCallback(String actionType, String actionValue) {
-                if (!actionType.isEmpty() && !actionValue.isEmpty()) {
+                if (actionType!=null && actionValue!=null && !actionType.isEmpty() && !actionValue.isEmpty()) {
                     Log.i(TAG, "bleshTemplateResultCallback: action type:" + actionType + " value: " + actionValue);
                     // Check for the action type and value you want to use
                     // You may wish to load a web
@@ -43,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
                     //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                     if (actionType.equals("URL")) {
                         // ADD ACTION HERE
+                        buildNotification(actionValue);
                     }
                 }
                 else {
@@ -131,5 +142,73 @@ public class MainActivity extends ActionBarActivity {
         Log.i(TAG, "editProfile");
         mUserProfile = new Intent(this, UserProfileActivity.class);
         startActivity(mUserProfile);
+    }
+
+    private void buildNotification(String value) {
+        int notificationId = 1;
+
+        // Build intent for notification content
+        Intent notificationIntent = new Intent(this, BeaconNotificationHandler.class);
+        //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
+        PendingIntent notificationPendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        long[] vibPattern = {500, 500, 500, 500, 500};
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.chronos)
+                        .setContentTitle(getString(R.string.title_notification))
+                        .setContentText(getString(R.string.content_notification))
+                        .setContentIntent(notificationPendingIntent)
+                        .setLights(Color.BLUE, 500, 500)
+                        .setVibrate(vibPattern)
+                        .setSound(sound);
+
+        // Add voice reply action to notification
+        String replyLabel = getResources().getString(R.string.voice_reply_action_label);
+        String[] replyChoices = getResources().getStringArray(R.array.voice_reply_choices);
+        RemoteInput remoteInput = new RemoteInput.Builder(EXTRA_VOICE_REPLY)
+                .setLabel(replyLabel)
+                .setChoices(replyChoices)
+                .build();
+
+        // Create an intent for the voice reply action
+        Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
+        PendingIntent replyPendingIntent =
+                PendingIntent.getActivity(this, 0, replyIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Create the reply action and add the remote input
+        NotificationCompat.Action replyAction =
+                new NotificationCompat.Action.Builder(R.drawable.concierge,
+                        getString(R.string.voice_reply_action_label), replyPendingIntent)
+                        .addRemoteInput(remoteInput)
+                        .build();
+
+        // Create an intent for editing profile
+        Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
+        PendingIntent editProfilePendingIntent =
+                PendingIntent.getActivity(this, 0, editProfileIntent, 0);
+
+        // Create edit profile action
+        NotificationCompat.Action editProfileAction =
+                new NotificationCompat.Action.Builder(R.drawable.profile,
+                        getString(R.string.edit_profile_action_label), editProfilePendingIntent)
+                        .build();
+
+        // Create wearable extender for wearable specific actions
+        NotificationCompat.WearableExtender wearExtender = new NotificationCompat.WearableExtender();
+        wearExtender.addAction(replyAction);
+        wearExtender.addAction(editProfileAction);
+
+        notificationBuilder.extend(wearExtender);
+
+        // Get an instance of the NotificationManager service
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(this);
+
+        // Build the notification and issues it with notification manager.
+        notificationManager.notify(notificationId, notificationBuilder.build());
     }
 }

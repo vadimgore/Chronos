@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChronosWear</string>
+    <string name="hello_round">Hello Chronos!</string>
+    <string name="hello_square">Hello Square World!</string>
+
+</resources>

@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,31 +14,19 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-class SpinnerItemSelectedListener implements AdapterView.OnItemSelectedListener {
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("Spinner:onItemSelected", parent.getItemAtPosition(position).toString());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.i("Spinner:onNothingSelected", " called");
-    }
-}
-
-public class UserProfileActivity extends ActionBarActivity {
+public class UserProfileActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "User Profile Activity:";
-    private final Timepiece mTimepiece = new Timepiece();
-    SeekBar mSeekBar1;
-    SeekBar mSeekBar2;
-    SeekBar mSeekBar3;
-    SeekBar mSeekBar4;
-    SeekBar mSeekBar5;
-    SeekBar mSeekBar6;
-    SeekBar mSeekBar7;
+    private Timepiece mTimepiece;
+    private FavoriteSport mFavSport;
+    private FavoriteDrink mFavDrink;
+
+    SeekBar mSeekBarGoals1;
+    SeekBar mSeekBarGoals2;
+    SeekBar mSeekBarStyle1;
+    SeekBar mSeekBarStyle2;
+    SeekBar mSeekBarBudget;
+    SeekBar mSeekBarUsage;
+    SeekBar mSeekBarWrist;
     Spinner mWatchfaceShapeSpinner;
     Spinner mWatchfaceTypeSpinner;
 
@@ -50,18 +37,23 @@ public class UserProfileActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Log.i(TAG, "Start User Profile Activity");
-        mSeekBar1 = (SeekBar) findViewById(R.id.seekBar1);
-        mSeekBar2 = (SeekBar) findViewById(R.id.seekBar2);
-        mSeekBar3 = (SeekBar) findViewById(R.id.seekBar3);
-        mSeekBar4 = (SeekBar) findViewById(R.id.seekBar4);
-        mSeekBar5 = (SeekBar) findViewById(R.id.seekBar5);
-        mSeekBar6 = (SeekBar) findViewById(R.id.seekBar6);
-        mSeekBar7 = (SeekBar) findViewById(R.id.seekBar7);
+        mSeekBarGoals1 = (SeekBar) findViewById(R.id.seekBar1);
+        mSeekBarGoals2 = (SeekBar) findViewById(R.id.seekBar2);
+        mSeekBarStyle1 = (SeekBar) findViewById(R.id.seekBar3);
+        mSeekBarStyle2 = (SeekBar) findViewById(R.id.seekBar4);
+        mSeekBarBudget = (SeekBar) findViewById(R.id.seekBar5);
+        mSeekBarUsage = (SeekBar) findViewById(R.id.seekBar6);
+        mSeekBarWrist = (SeekBar) findViewById(R.id.seekBar7);
 
         mWatchfaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
-        mWatchfaceShapeSpinner.setOnItemSelectedListener(new SpinnerItemSelectedListener());
+        mWatchfaceShapeSpinner.setOnItemSelectedListener(this);
 
         mWatchfaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
+        mWatchfaceTypeSpinner.setOnItemSelectedListener(this);
+
+        mTimepiece = new Timepiece(getApplicationContext());
+        mFavSport = new FavoriteSport(getApplicationContext());
+        mFavDrink = new FavoriteDrink(getApplicationContext());
 
         restoreProfile();
     }
@@ -99,35 +91,105 @@ public class UserProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onCheckboxClicked(View view) {
+    public void onMaterialsCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.checkbox_gold:
+            case R.id.checkbox_Gold:
                 if (checked)
-                    mTimepiece.addMaterial("gold");
+                    mTimepiece.addMaterial(Timepiece.Material.Gold);
                 else
-                    mTimepiece.removeMaterial("gold");
+                    mTimepiece.removeMaterial(Timepiece.Material.Gold);
                 break;
-            case R.id.checkbox_titan:
+            case R.id.checkbox_Titan:
                 if (checked)
-                    mTimepiece.addMaterial("titan");
+                    mTimepiece.addMaterial(Timepiece.Material.Titan);
                 else
-                    mTimepiece.removeMaterial("titan");
+                    mTimepiece.removeMaterial(Timepiece.Material.Titan);
                 break;
-            case R.id.checkbox_diamonds:
+            case R.id.checkbox_Diamonds:
                 if (checked)
-                    mTimepiece.addMaterial("diamonds");
+                    mTimepiece.addMaterial(Timepiece.Material.Diamonds);
                 else
-                    mTimepiece.removeMaterial("diamonds");
+                    mTimepiece.removeMaterial(Timepiece.Material.Diamonds);
                 break;
-            case R.id.checkbox_leather:
+            case R.id.checkbox_Leather:
                 if (checked)
-                    mTimepiece.addMaterial("leather");
+                    mTimepiece.addMaterial(Timepiece.Material.Leather);
                 else
-                    mTimepiece.removeMaterial("leather");
+                    mTimepiece.removeMaterial(Timepiece.Material.Leather);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void onFavSportsCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_Football:
+                if (checked)
+                    mFavSport.addSport(FavoriteSport.Sport.Football);
+                else
+                    mFavSport.removeSport(FavoriteSport.Sport.Football);
+                break;
+            case R.id.checkbox_Basketball:
+                if (checked)
+                    mFavSport.addSport(FavoriteSport.Sport.Basketball);
+                else
+                    mFavSport.removeSport(FavoriteSport.Sport.Basketball);
+                break;
+            case R.id.checkbox_Golf:
+                if (checked)
+                    mFavSport.addSport(FavoriteSport.Sport.Golf);
+                else
+                    mFavSport.removeSport(FavoriteSport.Sport.Golf);
+                break;
+            case R.id.checkbox_Formula_1:
+                if (checked)
+                    mFavSport.addSport(FavoriteSport.Sport.Formula_1);
+                else
+                    mFavSport.removeSport(FavoriteSport.Sport.Formula_1);
+                break;
+            case R.id.checkbox_Watersports:
+                if (checked)
+                    mFavSport.addSport(FavoriteSport.Sport.Watersports);
+                else
+                    mFavSport.removeSport(FavoriteSport.Sport.Watersports);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void onFavDrinkCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_Tea:
+                if (checked)
+                    mFavDrink.addDrink(FavoriteDrink.Drink.Tea);
+                else
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.Tea);
+                break;
+            case R.id.checkbox_Coffee:
+                if (checked)
+                    mFavDrink.addDrink(FavoriteDrink.Drink.Coffee);
+                else
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.Coffee);
+                break;
+            case R.id.checkbox_HotChocolate:
+                if (checked)
+                    mFavDrink.addDrink(FavoriteDrink.Drink.HotChocolate);
+                else
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.HotChocolate);
                 break;
             default:
                 break;
@@ -138,42 +200,99 @@ public class UserProfileActivity extends ActionBarActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
-        editor.putInt("seekBar1", mSeekBar1.getProgress());
-        editor.putInt("seekBar2", mSeekBar2.getProgress());
-        editor.putInt("seekBar3", mSeekBar3.getProgress());
-        editor.putInt("seekBar4", mSeekBar4.getProgress());
-        editor.putInt("seekBar5", mSeekBar5.getProgress());
-        editor.putInt("seekBar6", mSeekBar6.getProgress());
-        editor.putInt("seekBar7", mSeekBar7.getProgress());
+        editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
+        editor.putInt("seekBarGoals2", mSeekBarGoals2.getProgress());
+        editor.putInt("seekBarStyle1", mSeekBarStyle1.getProgress());
+        editor.putInt("seekBarStyle2", mSeekBarStyle2.getProgress());
+        editor.putInt("seekBarBudget", mSeekBarBudget.getProgress());
+        editor.putInt("seekBarUsage", mSeekBarUsage.getProgress());
+        editor.putInt("seekBarWrist", mSeekBarWrist.getProgress());
+
         editor.commit();
+
+        mTimepiece.saveState();
+        mFavSport.saveState();
+        mFavDrink.saveState();
 
         Toast.makeText(getApplicationContext(), "Profile saved!", Toast.LENGTH_LONG).show();
     }
 
-    private int[] getProfile() {
+    private int[] getSeekBarState() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int [] profile = {
-                sharedPref.getInt("seekBar1", 0),
-                sharedPref.getInt("seekBar2", 0),
-                sharedPref.getInt("seekBar3", 0),
-                sharedPref.getInt("seekBar4", 0),
-                sharedPref.getInt("seekBar5", 0),
-                sharedPref.getInt("seekBar6", 0),
-                sharedPref.getInt("seekBar7", 0),
+        int [] seekBarState = {
+                sharedPref.getInt("seekBarGoals1", 0),
+                sharedPref.getInt("seekBarGoals2", 0),
+                sharedPref.getInt("seekBarStyle1", 0),
+                sharedPref.getInt("seekBarStyle2", 0),
+                sharedPref.getInt("seekBarBudget", 0),
+                sharedPref.getInt("seekBarUsage", 0),
+                sharedPref.getInt("seekBarWrist", 0),
         };
 
-        return profile;
+        return seekBarState;
     }
 
     private void restoreProfile() {
-        int [] profile = getProfile();
-        mSeekBar1.setProgress(profile[0]);
-        mSeekBar2.setProgress(profile[1]);
-        mSeekBar3.setProgress(profile[2]);
-        mSeekBar4.setProgress(profile[3]);
-        mSeekBar5.setProgress(profile[4]);
-        mSeekBar6.setProgress(profile[5]);
-        mSeekBar7.setProgress(profile[6]);
+        // Restore seek bars state
+        int [] seekBarState = getSeekBarState();
+        mSeekBarGoals1.setProgress(seekBarState[0]);
+        mSeekBarGoals2.setProgress(seekBarState[1]);
+        mSeekBarStyle1.setProgress(seekBarState[2]);
+        mSeekBarStyle2.setProgress(seekBarState[3]);
+        mSeekBarBudget.setProgress(seekBarState[4]);
+        mSeekBarUsage.setProgress(seekBarState[5]);
+        mSeekBarWrist.setProgress(seekBarState[6]);
+
+        // Restore Timepiece materials
+        if (mTimepiece.getMaterials() != null) {
+            for (Timepiece.Material m : mTimepiece.getMaterials()) {
+                int id = getResources().getIdentifier("checkbox_" + m.name(), "id", getPackageName());
+                CheckBox checkBox = (CheckBox) findViewById(id);
+                if (checkBox != null)
+                    checkBox.setChecked(true);
+            }
+        }
+
+        // Restore Timepiece style
+        Spinner watchFaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
+        watchFaceShapeSpinner.setSelection(mTimepiece.getWatchface().getShape().ordinal());
+        Spinner watchFaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
+        watchFaceTypeSpinner.setSelection(mTimepiece.getWatchface().getType().ordinal());
+
+        // Restore Favorite Sport state
+        if (mFavSport.getSports() != null) {
+            for (FavoriteSport.Sport s : mFavSport.getSports()) {
+                int id = getResources().getIdentifier("checkbox_" + s.name(), "id", getPackageName());
+                CheckBox checkBox = (CheckBox) findViewById(id);
+                if (checkBox != null)
+                    checkBox.setChecked(true);
+            }
+        }
+
+        // Restore Favorite Drink state
+        if (mFavDrink.getDrinks() != null) {
+            for (FavoriteDrink.Drink s : mFavDrink.getDrinks()) {
+                int id = getResources().getIdentifier("checkbox_" + s.name(), "id", getPackageName());
+                CheckBox checkBox = (CheckBox) findViewById(id);
+                if (checkBox != null)
+                    checkBox.setChecked(true);
+            }
+        }
+
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("Spinner:onItemSelected", parent.getItemAtPosition(position).toString());
+        if (parent.getId() == mWatchfaceShapeSpinner.getId()) {
+            mTimepiece.getWatchface().setShape(Watchface.Shape.values()[position]);
+        } else if (parent.getId() == mWatchfaceTypeSpinner.getId()) {
+            mTimepiece.getWatchface().setType(Watchface.Type.values()[position]);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.i("Spinner:onNothingSelected", " called");
+    }
 }

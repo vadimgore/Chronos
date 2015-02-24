@@ -1,6 +1,8 @@
 package com.intel.ndg.chronos;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
@@ -17,34 +19,48 @@ class Watchface {
     }
     private Shape mShape;
     private Type mType;
-    private int mColor;
+    Context mContext;
+    SharedPreferences mSharedPref;
 
-    public Watchface() {
+    public Watchface(Context aContext) {
+        mContext = aContext;
         mShape = Shape.ROUND;
         mType = Type.CHRONOGRAPH;
-        mColor = Color.BLUE;
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
-    public Watchface(Shape aShape, Type aType, int aColor) {
+    public Watchface(Shape aShape, Type aType) {
         mShape = aShape;
         mType = aType;
-        mColor = aColor;
     }
 
     public Shape getShape() { return mShape; }
     public Type getType() { return mType; }
-    public int getColor() { return mColor; }
 
     public void setShape(Shape aShape) {
         mShape = aShape;
     }
 
-    public void setmType(Type aType) {
+    public void setType(Type aType) {
         mType = aType;
     }
 
-    public void setmColor(int aColor) {
-        mColor = aColor;
+    public void saveState() {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putInt("watchface_shape", mShape.ordinal());
+        editor.putInt("watchface_type", mType.ordinal());
+
+        editor.commit();
+    }
+
+    public void restoreState() {
+        int i = mSharedPref.getInt("watchface_shape", -1);
+        if (i > -1)
+            mShape = Shape.values()[i];
+
+        i = mSharedPref.getInt("watchface_type", -1);
+        if (i > -1)
+            mType = Type.values()[i];
     }
 }
 
@@ -52,20 +68,39 @@ class Watchface {
  * Created by vgore on 2/23/2015.
  */
 public class Timepiece {
-    ArrayList<String> mMaterials;
+
+    enum Material {
+        Gold,
+        Titan,
+        Diamonds,
+        Leather
+    }
+
+    ArrayList<Material> mMaterials;
     Watchface mFace;
+    Context mContext;
+    SharedPreferences mSharedPref;
 
-    public Timepiece() {
-        mMaterials = new ArrayList<String>();
-        mFace = new Watchface();
+    public Timepiece(Context aContext) {
+        mContext = aContext;
+        mMaterials = new ArrayList<>();
+        mFace = new Watchface(mContext);
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        restoreState();
     }
 
-    public void addMaterial(String name) {
-        mMaterials.add(name);
+    public ArrayList<Material> getMaterials() {
+        return mMaterials;
     }
 
-    public void removeMaterial(String name) {
-        mMaterials.remove(name);
+    public void addMaterial(Material m) {
+        if (!mMaterials.contains(m))
+            mMaterials.add(m);
+    }
+
+    public void removeMaterial(Material m) {
+        if (mMaterials.contains(m))
+            mMaterials.remove(m);
     }
 
     public void setWatchface(Watchface aFace) {
@@ -76,4 +111,23 @@ public class Timepiece {
         return mFace;
     }
 
+    public void saveState() {
+
+        mFace.saveState();
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        for (Material m : mMaterials) {
+            editor.putInt(m.name(), m.ordinal());
+        }
+
+        editor.commit();
+    }
+
+    public void restoreState() {
+        mFace.restoreState();
+        for (Material m : Material.values()) {
+            int i = mSharedPref.getInt(m.name(), -1);
+            if (i > -1)
+                mMaterials.add(m);
+        }
+    }
 }

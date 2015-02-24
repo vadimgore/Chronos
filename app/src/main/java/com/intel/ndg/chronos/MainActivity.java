@@ -189,7 +189,8 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent for editing profile
         Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
         PendingIntent editProfilePendingIntent =
-                PendingIntent.getActivity(this, 0, editProfileIntent, 0);
+                PendingIntent.getActivity(this, 0, editProfileIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create edit profile action
         NotificationCompat.Action editProfileAction =

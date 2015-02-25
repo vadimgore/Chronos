@@ -11,10 +11,14 @@
     <string name="title_notification">STYLE CONCIERGES</string>
     <string name="content_notification">for you service</string>
     <string name="voice_reply_action_label">Concierge</string>
+
+    <string name="voice_reply_choice_1">Explore on my own</string>
+    <string name="voice_reply_choice_2">Personal guidance</string>
+
     <string-array name="voice_reply_choices">
-        <item>Something specific</item>
-        <item>Explore on my own</item>
-        <item>Personal guidance</item>
+        <item></item>
+        <item>@string/voice_reply_choice_1</item>
+        <item>@string/voice_reply_choice_2</item>
     </string-array>
 
     <string-array name="watchface_shape_choices">

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.RemoteInput;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Vadim on 2/20/2015.
@@ -37,6 +38,21 @@ public class BeaconNotificationHandler extends Activity {
             Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
 
             //finish();
+            Toast.makeText(getApplicationContext(), "You requested " + response, Toast.LENGTH_LONG).show();
+
+            if (response.equals(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+                Toast.makeText(getApplicationContext(),
+                        "Please don't hesistate to contact one of our Style Concierges",
+                        Toast.LENGTH_LONG).show();
+            } else if (response.equals(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+                Toast.makeText(getApplicationContext(),
+                        "One of our Style Concierges will be with you momentarily",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "We cannot handle this request at this time",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
     /**

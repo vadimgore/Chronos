@@ -13,9 +13,8 @@ class Watchface {
         SQUARE
     }
     enum Type {
-        WATCH,
         CHRONOGRAPH,
-        DOUBLECHRONOGRAPH
+        ANALOGWATCH
     }
     private Shape mShape;
     private Type mType;

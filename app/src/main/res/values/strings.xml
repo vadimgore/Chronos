@@ -8,8 +8,8 @@
     <string name="save_profile">Save</string>
     <string name="title_activity_user_profile">Edit Profile</string>
 
-    <string name="title_notification">Welcome to store!</string>
-    <string name="content_notification">We are here for you</string>
+    <string name="title_notification">STYLE CONCIERGES</string>
+    <string name="content_notification">for you service</string>
     <string name="voice_reply_action_label">Concierge</string>
     <string-array name="voice_reply_choices">
         <item>Something specific</item>
@@ -24,7 +24,7 @@
 
     <string-array name="watchface_type_choices">
         <item>Chronograph</item>
-        <item>Analog</item>
+        <item>Analog watch</item>
     </string-array>
 
     <string-array name="fav_sports">

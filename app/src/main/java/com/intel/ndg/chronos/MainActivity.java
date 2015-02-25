@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.RemoteInput;
@@ -29,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
     private Intent mUserProfile = null;
     private static final String TAG = "Main Activity:";
     private static final int REQUEST_ENABLE_BT = 0;
+    private StyleConcierge mStyleConcierge;
 
     // Key for the string that's delivered in the action's intent
     private static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
@@ -53,7 +56,9 @@ public class MainActivity extends ActionBarActivity {
                     //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                     if (actionType.equals("URL")) {
                         // ADD ACTION HERE
-                        buildNotification(actionValue);
+                        // build style concierge class and initiate with actionValue
+                        mStyleConcierge = new StyleConcierge(actionValue);
+                        buildNotification();
                     }
                 }
                 else {
@@ -65,16 +70,18 @@ public class MainActivity extends ActionBarActivity {
 
         // Register Blesh callback
         BleshInstance.sharedInstance().setTemplateResult(result);
-
     }
 
     @Override
     protected void onStart() {
-
         super.onStart();
         // Make sure Bluetooch is enabled
         enableBluetooth();
+        // Start Blesh
         startBlesh();
+
+        // Finish activity after 10 sec of inactivity
+        //delayedFinish(10);
     }
 
     @Override
@@ -144,8 +151,8 @@ public class MainActivity extends ActionBarActivity {
         startActivity(mUserProfile);
     }
 
-    private void buildNotification(String value) {
-        int notificationId = 1;
+    private void buildNotification() {
+        int notificationId = 001;
 
         // Build intent for notification content
         Intent notificationIntent = new Intent(this, BeaconNotificationHandler.class);
@@ -161,7 +168,6 @@ public class MainActivity extends ActionBarActivity {
                         .setContentTitle(getString(R.string.title_notification))
                         .setContentText(getString(R.string.content_notification))
                         .setContentIntent(notificationPendingIntent)
-                        .setLights(Color.BLUE, 500, 500)
                         .setVibrate(vibPattern)
                         .setSound(sound);
 
@@ -176,8 +182,7 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent for the voice reply action
         Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
         PendingIntent replyPendingIntent =
-                PendingIntent.getActivity(this, 0, replyIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 0, replyIntent, 0);
 
         // Create the reply action and add the remote input
         NotificationCompat.Action replyAction =
@@ -189,8 +194,7 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent for editing profile
         Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
         PendingIntent editProfilePendingIntent =
-                PendingIntent.getActivity(this, 0, editProfileIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(this, 0, editProfileIntent, 0);
 
         // Create edit profile action
         NotificationCompat.Action editProfileAction =
@@ -202,6 +206,8 @@ public class MainActivity extends ActionBarActivity {
         NotificationCompat.WearableExtender wearExtender = new NotificationCompat.WearableExtender();
         wearExtender.addAction(replyAction);
         wearExtender.addAction(editProfileAction);
+        Bitmap bkGround = BitmapFactory.decodeResource(getResources(), R.drawable.ringbell);
+        wearExtender.setBackground(bkGround);
 
         notificationBuilder.extend(wearExtender);
 
@@ -211,5 +217,16 @@ public class MainActivity extends ActionBarActivity {
 
         // Build the notification and issues it with notification manager.
         notificationManager.notify(notificationId, notificationBuilder.build());
+    }
+
+    private void delayedFinish(int timeout) {
+        Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                finish();
+            }
+        };
+
+        handler.postDelayed(r, timeout*1000);
     }
 }

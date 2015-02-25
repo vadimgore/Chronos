@@ -2,10 +2,11 @@ package com.intel.ndg.chronos;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.RemoteInput;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Vadim on 2/20/2015.
@@ -16,15 +17,25 @@ public class BeaconNotificationHandler extends Activity {
     private static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
     private static final String TAG = "NotificationHandler";
 
+    StyleAnalytics mStyleAnalytics = null;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Create style analytics
+        mStyleAnalytics = createStyleAnalytics();
+
         String response = getMessageText(this.getIntent());
         if (response != null) {
             Log.i(TAG, response);
-            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+            Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
+            Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
+            Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
+            Log.i(TAG, "Favorite Sports = " + mStyleAnalytics.getFavSports());
+            Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
+
             //finish();
         }
     }
@@ -40,5 +51,39 @@ public class BeaconNotificationHandler extends Activity {
             return remoteInput.getCharSequence(EXTRA_VOICE_REPLY).toString();
         }
         return null;
+    }
+
+    private StyleAnalytics createStyleAnalytics() {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (!sharedPref.contains("seekBarGoals1"))
+                // No shared preferences exist
+                return null;
+
+        int [] seekBarState = {
+                sharedPref.getInt("seekBarGoals1", 0),
+                sharedPref.getInt("seekBarGoals2", 0),
+                sharedPref.getInt("seekBarStyle1", 0),
+                sharedPref.getInt("seekBarStyle2", 0),
+                sharedPref.getInt("seekBarBudget", 0),
+                sharedPref.getInt("seekBarUsage", 0),
+                sharedPref.getInt("seekBarWrist", 0),
+        };
+
+        Timepiece timepiece = new Timepiece(getApplicationContext());
+        FavoriteSport favSport = new FavoriteSport(getApplicationContext());
+        FavoriteDrink favDrink = new FavoriteDrink(getApplicationContext());
+
+        return new StyleAnalytics(
+                        seekBarState[0],
+                        seekBarState[1],
+                        seekBarState[2],
+                        seekBarState[3],
+                        seekBarState[4],
+                        seekBarState[5],
+                        seekBarState[6],
+                        timepiece,
+                        favSport,
+                        favDrink );
     }
 }

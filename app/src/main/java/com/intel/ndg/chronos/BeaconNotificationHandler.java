@@ -40,11 +40,11 @@ public class BeaconNotificationHandler extends Activity {
             //finish();
             Toast.makeText(getApplicationContext(), "You requested " + response, Toast.LENGTH_LONG).show();
 
-            if (response.equals(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+            if (response.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
                 Toast.makeText(getApplicationContext(),
                         "Please don't hesistate to contact one of our Style Concierges",
                         Toast.LENGTH_LONG).show();
-            } else if (response.equals(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+            } else if (response.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
                 Toast.makeText(getApplicationContext(),
                         "One of our Style Concierges will be with you momentarily",
                         Toast.LENGTH_LONG).show();

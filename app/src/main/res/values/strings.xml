@@ -16,7 +16,6 @@
     <string name="voice_reply_choice_2">Personal guidance</string>
 
     <string-array name="voice_reply_choices">
-        <item></item>
         <item>@string/voice_reply_choice_1</item>
         <item>@string/voice_reply_choice_2</item>
     </string-array>

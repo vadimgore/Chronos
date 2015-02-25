@@ -80,8 +80,10 @@ public class MainActivity extends ActionBarActivity {
         // Start Blesh
         startBlesh();
 
+        buildNotification();
+
         // Finish activity after 10 sec of inactivity
-        //delayedFinish(10);
+        delayedFinish(10);
     }
 
     @Override
@@ -182,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent for the voice reply action
         Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
         PendingIntent replyPendingIntent =
-                PendingIntent.getActivity(this, 0, replyIntent, 0);
+                PendingIntent.getActivity(this, 0, replyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create the reply action and add the remote input
         NotificationCompat.Action replyAction =
@@ -194,7 +196,7 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent for editing profile
         Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
         PendingIntent editProfilePendingIntent =
-                PendingIntent.getActivity(this, 0, editProfileIntent, 0);
+                PendingIntent.getActivity(this, 0, editProfileIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create edit profile action
         NotificationCompat.Action editProfileAction =

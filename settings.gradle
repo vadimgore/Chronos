@@ -1,1 +1,1 @@
-include ':app', ':bleshSDKLib', ':chronoswear'
+include ':app', ':Blesh'

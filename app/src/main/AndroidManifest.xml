@@ -29,12 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Blesh stuff -->
         <activity
             android:name="com.blesh.sdk.activity.BleshMainActivity"
             android:exported="true" >
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <action android:name="com.blesh.template.normal" />
                 <action android:name="com.blesh.template.push" />
             </intent-filter>

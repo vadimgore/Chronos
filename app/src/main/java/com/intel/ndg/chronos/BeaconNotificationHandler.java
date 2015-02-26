@@ -29,7 +29,7 @@ public class BeaconNotificationHandler extends Activity {
         mStyleAnalytics = createStyleAnalytics();
 
         String response = getMessageText(this.getIntent());
-        if (response != null) {
+        if (response != null && mStyleAnalytics != null) {
             Log.i(TAG, response);
             Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
             Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());

@@ -80,16 +80,16 @@ public class MainActivity extends ActionBarActivity {
         // Start Blesh
         startBlesh();
 
-        buildNotification();
+        //buildNotification();
 
         // Finish activity after 10 sec of inactivity
-        delayedFinish(10);
+        //delayedFinish(10);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        stopBlesh();
+        //stopBlesh();
     }
 
     @Override

@@ -33,8 +33,9 @@ public class MainActivity extends ActionBarActivity {
     private static final int REQUEST_ENABLE_BT = 0;
     private StyleConcierge mStyleConcierge;
 
-    // Key for the string that's delivered in the action's intent
-    private static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
+    private static final String IFASHION_IP_ADDRESS = "http://52.10.19.66";
+    private static final String IFASHION_PORT = "8080";
+    private static final String IFASHION_CONCIERGE_API = "/concierge";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Build intent for notification content
         Intent notificationIntent = new Intent(this, BeaconNotificationHandler.class);
-        //viewIntent.putExtra(EXTRA_EVENT_ID, eventId);
+
         PendingIntent notificationPendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
@@ -176,13 +177,17 @@ public class MainActivity extends ActionBarActivity {
         // Add voice reply action to notification
         String replyLabel = getResources().getString(R.string.voice_reply_action_label);
         String[] replyChoices = getResources().getStringArray(R.array.voice_reply_choices);
-        RemoteInput remoteInput = new RemoteInput.Builder(EXTRA_VOICE_REPLY)
+        RemoteInput remoteInput = new RemoteInput.Builder("@string/extra_voice_reply")
                 .setLabel(replyLabel)
                 .setChoices(replyChoices)
                 .build();
 
         // Create an intent for the voice reply action
         Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
+        replyIntent.putExtra("@string/extra_concierge_id", mStyleConcierge.getID());
+        replyIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
+        replyIntent.putExtra("@string/port", IFASHION_PORT);
+        replyIntent.putExtra("@string/api", IFASHION_CONCIERGE_API);
         PendingIntent replyPendingIntent =
                 PendingIntent.getActivity(this, 0, replyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

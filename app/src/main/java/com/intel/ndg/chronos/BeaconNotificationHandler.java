@@ -15,10 +15,9 @@ import android.widget.Toast;
 public class BeaconNotificationHandler extends Activity {
 
     // Key for the string that's delivered in the action's intent
-    private static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
     private static final String TAG = "NotificationHandler";
 
-    StyleAnalytics mStyleAnalytics = null;
+    private StyleAnalytics mStyleAnalytics = null;
 
     /** Called when the activity is first created. */
     @Override
@@ -45,9 +44,18 @@ public class BeaconNotificationHandler extends Activity {
                         "Please don't hesistate to contact one of our Style Concierges",
                         Toast.LENGTH_LONG).show();
             } else if (response.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
-                Toast.makeText(getApplicationContext(),
-                        "One of our Style Concierges will be with you momentarily",
-                        Toast.LENGTH_LONG).show();
+
+                // Extract Concierge ID from Intent
+                Intent intent = getIntent();
+                String conciergeID = intent.getStringExtra("@string/extra_concierge_id");
+                String httpURL = intent.getStringExtra("@string/ip_address") + ":" +
+                        intent.getStringExtra("@string/port") + intent.getStringExtra("@string/api");
+
+                Log.i(TAG, "Concierge ID =" + conciergeID);
+
+                // Get full Concierge profile from iFashion
+                new HttpGetter().execute(httpURL, "id="+conciergeID);
+
             } else {
                 Toast.makeText(getApplicationContext(),
                         "We cannot handle this request at this time",
@@ -55,16 +63,11 @@ public class BeaconNotificationHandler extends Activity {
             }
         }
     }
-    /**
-     * Obtain the intent that started this activity by calling
-     * Activity.getIntent() and pass it into this method to
-     * get the associated voice input string.
-     */
 
     private String getMessageText(Intent intent) {
         Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
         if (remoteInput != null) {
-            return remoteInput.getCharSequence(EXTRA_VOICE_REPLY).toString();
+            return remoteInput.getCharSequence("@string/extra_voice_reply").toString();
         }
         return null;
     }

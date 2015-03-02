@@ -27,9 +27,9 @@ public class BeaconNotificationHandler extends Activity {
         // Create style analytics
         mStyleAnalytics = createStyleAnalytics();
 
-        String response = getMessageText(this.getIntent());
-        if (response != null && mStyleAnalytics != null) {
-            Log.i(TAG, response);
+        String userResponse = getUserResponse(this.getIntent());
+        if (userResponse != null && mStyleAnalytics != null) {
+            Log.i(TAG, userResponse);
             Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
             Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
             Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
@@ -37,25 +37,24 @@ public class BeaconNotificationHandler extends Activity {
             Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
 
             //finish();
-            Toast.makeText(getApplicationContext(), "You requested " + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "You requested " + userResponse, Toast.LENGTH_LONG).show();
 
-            if (response.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+            if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
                 Toast.makeText(getApplicationContext(),
                         "Please don't hesistate to contact one of our Style Concierges",
                         Toast.LENGTH_LONG).show();
-            } else if (response.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
-
-                // Extract Concierge ID from Intent
-                Intent intent = getIntent();
-                String conciergeID = intent.getStringExtra("@string/extra_concierge_id");
-                String httpURL = intent.getStringExtra("@string/ip_address") + ":" +
-                        intent.getStringExtra("@string/port") + intent.getStringExtra("@string/api");
-
-                Log.i(TAG, "Concierge ID =" + conciergeID);
-
-                // Get full Concierge profile from iFashion
-                new HttpGetter().execute(httpURL, "id="+conciergeID);
-
+            } else if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
+                // Start Concierge Profile Activity
+                Intent conciergeProfileIntent = new Intent(this, ConciergeProfileActivity.class);
+                conciergeProfileIntent.putExtra("@string/extra_concierge_id",
+                        getIntent().getStringExtra("@string/extra_concierge_id"));
+                conciergeProfileIntent.putExtra("@string/ip_address",
+                        getIntent().getStringExtra("@string/ip_address"));
+                conciergeProfileIntent.putExtra("@string/port",
+                        getIntent().getStringExtra("@string/port"));
+                conciergeProfileIntent.putExtra("@string/api",
+                        getIntent().getStringExtra("@string/api"));
+                startActivity(conciergeProfileIntent);
             } else {
                 Toast.makeText(getApplicationContext(),
                         "We cannot handle this request at this time",
@@ -64,7 +63,7 @@ public class BeaconNotificationHandler extends Activity {
         }
     }
 
-    private String getMessageText(Intent intent) {
+    private String getUserResponse(Intent intent) {
         Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
         if (remoteInput != null) {
             return remoteInput.getCharSequence("@string/extra_voice_reply").toString();

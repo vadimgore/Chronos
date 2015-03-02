@@ -7,11 +7,9 @@
     <string name="action_profile">Profile</string>
     <string name="save_profile">Save</string>
     <string name="title_activity_user_profile">Edit Profile</string>
-
     <string name="title_notification">STYLE CONCIERGES</string>
     <string name="content_notification">for you service</string>
     <string name="voice_reply_action_label">Concierge</string>
-
     <string name="voice_reply_choice_1">Explore on my own</string>
     <string name="voice_reply_choice_2">Personal guidance</string>
 
@@ -19,17 +17,14 @@
         <item>@string/voice_reply_choice_1</item>
         <item>@string/voice_reply_choice_2</item>
     </string-array>
-
     <string-array name="watchface_shape_choices">
         <item>Round</item>
         <item>Square</item>
     </string-array>
-
     <string-array name="watchface_type_choices">
         <item>Chronograph</item>
         <item>Analog watch</item>
     </string-array>
-
     <string-array name="fav_sports">
         <item>Football</item>
         <item>Basketball</item>
@@ -39,12 +34,11 @@
     </string-array>
 
     <string name="edit_profile_action_label">Profile</string>
-
     <string name="ip_address">ip_address</string>
     <string name="port">port</string>
     <string name="api">api</string>
     <string name="extra_concierge_id">extra_concierge_id</string>
     <string name="extra_voice_reply">extra_voice_reply</string>
-
+    <string name="title_activity_concierge_profile">ConciergeProfileActivity</string>
 
 </resources>

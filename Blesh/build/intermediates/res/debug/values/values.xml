@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
@@ -12,10 +12,10 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="BLESHCOLOR_blackOverlay">#44000000</color>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -158,12 +158,12 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="blesh_menu_item_hide">Do not show again</string>
     <string name="blesh_menu_item_save_to_gallery">Save screenshot</string>
     <string name="blesh_menu_item_show">Show again</string>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -175,7 +175,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -929,7 +929,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
@@ -945,7 +945,7 @@
         <item name="buttonBarStyle">@style/ButtonBar</item>
         <item name="buttonBarButtonStyle">@style/ButtonBarButton</item>
     </style>
-    <!-- From: file:/C:/Users/Vadim/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/vgore/Documents/GitHub/Chronos/Blesh/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>

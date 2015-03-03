@@ -39,6 +39,13 @@
     <string name="api">api</string>
     <string name="extra_concierge_id">extra_concierge_id</string>
     <string name="extra_voice_reply">extra_voice_reply</string>
-    <string name="title_activity_concierge_profile">ConciergeProfileActivity</string>
+    <string name="title_activity_personal_guidance">Personal Guidance</string>
+    <string name="title_activity_explore_on_my_own">Explore On My Own</string>
+
+    <string name="extra_style_score">extra_style_score</string>
+    <string name="extra_budget_score">extra_budget_score</string>
+    <string name="extra_fav_sports">extra_fav_sports</string>
+    <string name="extra_fav_drinks">extra_fav_drinks</string>
+    <string name="extra_prod_rec">extra_prod_rec</string>
 
 </resources>

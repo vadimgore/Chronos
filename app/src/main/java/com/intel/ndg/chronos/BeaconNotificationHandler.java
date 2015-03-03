@@ -28,38 +28,30 @@ public class BeaconNotificationHandler extends Activity {
         mStyleAnalytics = createStyleAnalytics();
 
         String userResponse = getUserResponse(this.getIntent());
-        if (userResponse != null && mStyleAnalytics != null) {
+        if (userResponse != null) {
             Log.i(TAG, userResponse);
-            Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
-            Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
-            Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
-            Log.i(TAG, "Favorite Sports = " + mStyleAnalytics.getFavSports());
-            Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
+            //Toast.makeText(getApplicationContext(), "You requested " + userResponse, Toast.LENGTH_LONG).show();
 
-            //finish();
-            Toast.makeText(getApplicationContext(), "You requested " + userResponse, Toast.LENGTH_LONG).show();
+            if (mStyleAnalytics != null) {
+                Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
+                Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
+                Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
+                Log.i(TAG, "Favorite Sports = " + mStyleAnalytics.getFavSports());
+                Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
+            }
 
+            Intent userResponseHandler = null;
             if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
-                Toast.makeText(getApplicationContext(),
-                        "Please don't hesistate to contact one of our Style Concierges",
-                        Toast.LENGTH_LONG).show();
+                userResponseHandler = new Intent(this, ExploreOnMyOwnActivity.class);
             } else if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
-                // Start Concierge Profile Activity
-                Intent conciergeProfileIntent = new Intent(this, ConciergeProfileActivity.class);
-                conciergeProfileIntent.putExtra("@string/extra_concierge_id",
-                        getIntent().getStringExtra("@string/extra_concierge_id"));
-                conciergeProfileIntent.putExtra("@string/ip_address",
-                        getIntent().getStringExtra("@string/ip_address"));
-                conciergeProfileIntent.putExtra("@string/port",
-                        getIntent().getStringExtra("@string/port"));
-                conciergeProfileIntent.putExtra("@string/api",
-                        getIntent().getStringExtra("@string/api"));
-                startActivity(conciergeProfileIntent);
+                userResponseHandler = new Intent(this, PersonalGuidanceActivity.class);
             } else {
                 Toast.makeText(getApplicationContext(),
                         "We cannot handle this request at this time",
                         Toast.LENGTH_LONG).show();
             }
+
+            onUserResponse(userResponseHandler);
         }
     }
 
@@ -103,5 +95,31 @@ public class BeaconNotificationHandler extends Activity {
                         timepiece,
                         favSport,
                         favDrink );
+    }
+
+    public void onUserResponse(Intent intent) {
+
+        if (intent.equals(null)) return;
+
+        // Start Concierge Profile Activity
+
+        intent.putExtra("@string/extra_concierge_id",
+                getIntent().getStringExtra("@string/extra_concierge_id"));
+        intent.putExtra("@string/ip_address",
+                getIntent().getStringExtra("@string/ip_address"));
+        intent.putExtra("@string/port",
+                getIntent().getStringExtra("@string/port"));
+        intent.putExtra("@string/api",
+                getIntent().getStringExtra("@string/api"));
+
+        if (mStyleAnalytics != null) {
+            intent.putExtra("@string/extra_style_score", mStyleAnalytics.getStyleScore());
+            intent.putExtra("@string/extra_budget_score", mStyleAnalytics.getBudgetScore());
+            intent.putExtra("@string/extra_fav_sports", mStyleAnalytics.getFavSports());
+            intent.putExtra("@string/extra_fav_drinks", mStyleAnalytics.getFavSports());
+            intent.putExtra("@string/extra_prod_rec", mStyleAnalytics.getProductRecommendation());
+        }
+
+        startActivity(intent);
     }
 }

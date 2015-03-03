@@ -87,8 +87,16 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".ConciergeProfileActivity"
-            android:label="@string/title_activity_concierge_profile" >
+            android:name=".PersonalGuidanceActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/title_activity_personal_guidance" >
+        </activity>
+        <activity
+            android:name=".ExploreOnMyOwnActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/title_activity_explore_on_my_own" >
         </activity>
     </application>
 

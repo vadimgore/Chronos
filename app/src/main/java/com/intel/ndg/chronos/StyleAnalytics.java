@@ -1,5 +1,8 @@
 package com.intel.ndg.chronos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Vadim on 2/24/2015.
  */

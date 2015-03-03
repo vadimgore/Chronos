@@ -81,7 +81,9 @@ public class MainActivity extends ActionBarActivity {
         // Start Blesh
         startBlesh();
 
-        //buildNotification();
+        /// FOR DEBUGGING TO BYPASS BLESH
+        mStyleConcierge = new StyleConcierge("{\"associate\":{\"name\": \"Jane\", \"uuid\": \"12345\"}}");
+        buildNotification();
 
         // Finish activity after 10 sec of inactivity
         //delayedFinish(10);

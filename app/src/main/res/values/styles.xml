@@ -1,26 +1,34 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="ChronosTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-    </style>
-
-    <!-- the theme applied to the application or activity -->
-    <style name="ChronosActionBarTheme"
-        parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/ChronosActionBar</item>
+        <item name="android:windowBackground">@color/beige</item>
+        <item name="android:actionBarStyle">@style/ChronosActionBarTheme</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:homeAsUpIndicator">@drawable/back</item>
 
         <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/ChronosActionBar</item>
+        <item name="actionBarStyle">@style/ChronosActionBarTheme</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="homeAsUpIndicator">@drawable/back</item>
     </style>
 
     <!-- ActionBar styles -->
-    <style name="ChronosActionBar"
+    <style name="ChronosActionBarTheme"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/orange</item>
+        <item name="android:background">@color/tag_red</item>
+        <item name="android:titleTextStyle">@style/ChronosActionBarTitleText</item>
 
         <!-- Support library compatibility -->
-        <item name="background">@color/orange</item>
+        <item name="background">@color/tag_red</item>
+        <item name="titleTextStyle">@style/ChronosActionBarTitleText</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="ChronosActionBarTitleText"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

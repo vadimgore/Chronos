@@ -42,10 +42,10 @@ class HttpPoster extends AsyncTask<String, String, String> {
         HttpResponse response;
         try {
             // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<>(3);
-            nameValuePairs.add(new BasicNameValuePair("user_id", params[1]));
-            nameValuePairs.add(new BasicNameValuePair("concierge_id", params[2]));
-            nameValuePairs.add(new BasicNameValuePair("style_analytics", params[3]));
+            List<NameValuePair> nameValuePairs = new ArrayList<>((params.length-1)/2);
+            for (int i = 1; i < params.length; i+=2) {
+                nameValuePairs.add(new BasicNameValuePair(params[i], params[i+1]));
+            }
 
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
             // Execute HTTP Post Request
@@ -63,6 +63,7 @@ class HttpPoster extends AsyncTask<String, String, String> {
                 Log.i(TAG, "Your data: " + builder.toString()); //response data
             } else {
                 Log.e(TAG, "Failed with error: " + statusLine.getReasonPhrase());
+                Toast.makeText(mContext, TAG + ":error: " + statusLine.getReasonPhrase(), Toast.LENGTH_LONG).show();
             }
         } catch (ClientProtocolException e) {
             System.out.println(e.getMessage());

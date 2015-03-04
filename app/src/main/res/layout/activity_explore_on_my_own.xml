@@ -24,19 +24,17 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:textColor="@color/tag_green"
-                android:text="We respect your privacy!">
+                android:text="Happy Exploring!">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
                 android:textColor="@color/gray"
-                android:text="Don't hesitate to contact one of ours Style Concierges should you need anything">
+                android:text="Should you need personal assistance our Style Concierges are here for you!">
             </TextView>
 
             <Button

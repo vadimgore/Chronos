@@ -1,5 +1,6 @@
 package com.intel.ndg.chronos;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +10,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,30 +35,59 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     TextView mConciergeName;
     TextView mConciergeTitle;
     TextView mConciergeSpecialties;
+    TextView mShareProfileReq;
+    TextView mHttpReqStatus;
+    Button mAllowProfileSharing;
+    Button mDenyProfileSharing;
 
     JSONObject mJSONObj;
+
+    String miFashionIP;
+    String miFashionPort;
+    String miFashionAPI;
+    String mConsumerID;
+    String mConciergeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_guidance);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Hang in there, while we connect you to the Style Concierge...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 
         mConciergePhoto = (ImageView) findViewById(R.id.concierge_photo);
         mConciergeName = (TextView) findViewById(R.id.concierge_name);
         mConciergeTitle = (TextView) findViewById(R.id.concierge_title);
         mConciergeSpecialties = (TextView) findViewById(R.id.concierge_specialties);
+        mShareProfileReq = (TextView) findViewById(R.id.share_profile_request);
+        mHttpReqStatus = (TextView) findViewById(R.id.http_request_status);
 
         mEnglish = (ImageView) findViewById(R.id.language_english);
         mFrench = (ImageView) findViewById(R.id.language_french);
         mSpanish = (ImageView) findViewById(R.id.language_spanish);
         mGerman = (ImageView) findViewById(R.id.language_german);
 
+        mAllowProfileSharing = (Button) findViewById(R.id.allow_profile_sharing);
+        mDenyProfileSharing = (Button) findViewById(R.id.deny_profile_sharing);
+
+        mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
+        mConciergeID = getIntent().getExtras().getString("@string/concierge_id");
+        miFashionIP = getIntent().getExtras().getString("@string/ip_address");
+        miFashionPort = getIntent().getExtras().getString("@string/port");
+        miFashionAPI = getIntent().getExtras().getString("@string/profile_api");
+
         String conciergeProfile = getConciergeProfile();
+
         try {
             mJSONObj = new JSONObject(conciergeProfile);
             mConciergeName.setText(mJSONObj.get("name").toString());
             mConciergeTitle.setText(mJSONObj.get("title").toString());
             mConciergeSpecialties.setText("Specializes in " + mJSONObj.get("specialty").toString());
+            mShareProfileReq.setText("Allow " + mJSONObj.get("name") + " to access Style Analytics?");
 
             String encodedPhoto = mJSONObj.get("photo").toString();
             Bitmap conciergePhoto = decodeBitmap(encodedPhoto);
@@ -74,10 +107,15 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
                 mGerman.setImageResource(R.drawable.german);
             }
 
+            mAllowProfileSharing.setVisibility(View.VISIBLE);
+            mDenyProfileSharing.setVisibility(View.VISIBLE);
+
         } catch (JSONException e) {
             Log.i(TAG, "onCreate: exception " + e.getMessage());
+            mHttpReqStatus.setText(conciergeProfile);
         }
 
+        mDialog.cancel();
     }
 
 
@@ -106,9 +144,9 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     public String getConciergeProfile() {
         // Extract Concierge ID from Intent
         Intent intent = getIntent();
-        String conciergeID = intent.getStringExtra("@string/extra_concierge_id");
+        String conciergeID = intent.getStringExtra("@string/concierge_id");
         String httpURL = intent.getStringExtra("@string/ip_address") + ":" +
-                intent.getStringExtra("@string/port") + intent.getStringExtra("@string/api");
+                intent.getStringExtra("@string/port") + intent.getStringExtra("@string/concierge_api");
 
         Log.i(TAG, "Concierge ID =" + conciergeID);
 
@@ -132,7 +170,30 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
 
     private Bitmap decodeBitmap(String encodedBitmap) {
         byte[] b = Base64.decode(encodedBitmap, Base64.DEFAULT);
-        Bitmap decodedBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-        return decodedBitmap;
+        return BitmapFactory.decodeByteArray(b, 0, b.length);
+    }
+
+    public void onAllowProfileSharing(View view) {
+
+        Log.i(TAG, "onAllowProfileSharing called");
+        HttpPoster poster = new HttpPoster(getApplicationContext());
+        poster.execute(
+                miFashionIP + ":" + miFashionPort + miFashionAPI,
+                "consumer_id", mConsumerID,
+                "concierge_id", mConciergeID,
+                "profile_access", "true"
+        );
+    }
+
+    public void onDenyProfileSharing(View view) {
+
+        Log.i(TAG, "onDenyProfileSharing called");
+        HttpPoster poster = new HttpPoster(getApplicationContext());
+        poster.execute(
+                miFashionIP + ":" + miFashionPort + miFashionAPI,
+                "consumer_id", mConsumerID,
+                "concierge_id", mConciergeID,
+                "profile_access", "false"
+        );
     }
 }

@@ -1,28 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:background="@color/beige"
     tools:context="com.intel.ndg.chronos.PersonalGuidanceActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/http_request_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:textColor="@color/red">
+            </TextView>
+
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -92,6 +99,50 @@
                 </ImageView>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/share_profile_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:textColor="@color/tag_green">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="true"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/allow_profile_sharing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tag_green"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:text="Allow"
+                    android:visibility="invisible"
+                    android:onClick="onAllowProfileSharing"
+                    />
+                <Button
+                    android:id="@+id/deny_profile_sharing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/tag_red"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:text="Deny"
+                    android:visibility="invisible"
+                    android:onClick="onDenyProfileSharing"
+                    />
+
+             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

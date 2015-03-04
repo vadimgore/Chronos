@@ -5,21 +5,16 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
 
 class HttpGetter extends AsyncTask<String, String, String> {
 
@@ -58,8 +53,10 @@ class HttpGetter extends AsyncTask<String, String, String> {
                 Log.e("Getter", "Failed with error: " + statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {
+            result.append(e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            result.append(e.getMessage());
             e.printStackTrace();
         }
 

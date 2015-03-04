@@ -20,15 +20,22 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private FavoriteSport mFavSport;
     private FavoriteDrink mFavDrink;
 
-    SeekBar mSeekBarGoals1;
-    SeekBar mSeekBarGoals2;
-    SeekBar mSeekBarStyle1;
-    SeekBar mSeekBarStyle2;
-    SeekBar mSeekBarBudget;
-    SeekBar mSeekBarUsage;
-    SeekBar mSeekBarWrist;
-    Spinner mWatchfaceShapeSpinner;
-    Spinner mWatchfaceTypeSpinner;
+    private SeekBar mSeekBarGoals1;
+    private SeekBar mSeekBarGoals2;
+    private SeekBar mSeekBarStyle1;
+    private SeekBar mSeekBarStyle2;
+    private SeekBar mSeekBarBudget;
+    private SeekBar mSeekBarUsage;
+    private SeekBar mSeekBarWrist;
+    private Spinner mWatchfaceShapeSpinner;
+    private Spinner mWatchfaceTypeSpinner;
+
+    private String mConsumerID;
+    private String miFashionIP;
+    private String miFashionPort;
+    private String miFashionAPI;
+
+    private StyleAnalytics mStyleAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,12 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Log.i(TAG, "Start User Profile Activity");
+
+        mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
+        miFashionIP = getIntent().getExtras().getString("@string/ip_address");
+        miFashionPort = getIntent().getExtras().getString("@string/port");
+        miFashionAPI = getIntent().getExtras().getString("@string/consumer_api");
+
         mSeekBarGoals1 = (SeekBar) findViewById(R.id.seekBar1);
         mSeekBarGoals2 = (SeekBar) findViewById(R.id.seekBar2);
         mSeekBarStyle1 = (SeekBar) findViewById(R.id.seekBar3);
@@ -56,6 +69,16 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mFavDrink = new FavoriteDrink(getApplicationContext());
 
         restoreProfile();
+
+        // Create style analytics
+        mStyleAnalytics = createStyleAnalytics();
+        if (mStyleAnalytics != null) {
+            Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
+            Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
+            Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
+            Log.i(TAG, "Favorite Sports = " + mStyleAnalytics.getFavSports());
+            Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
+        }
     }
 
     @Override
@@ -81,8 +104,8 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         switch (id) {
             case R.id.save_profile:
                 saveProfile();
-                return true;
-            case R.id.action_settings:
+            case R.id.upload_profile:
+                sendToBackend();
                 break;
             default:
                 break;
@@ -200,6 +223,9 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
+
+        editor.putString("consumer_id", mConsumerID);
+
         editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
         editor.putInt("seekBarGoals2", mSeekBarGoals2.getProgress());
         editor.putInt("seekBarStyle1", mSeekBarStyle1.getProgress());
@@ -215,6 +241,44 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mFavDrink.saveState();
 
         Toast.makeText(getApplicationContext(), "Profile saved!", Toast.LENGTH_LONG).show();
+    }
+
+    private void sendToBackend() {
+        HttpPoster poster = new HttpPoster(getApplicationContext());
+        poster.execute(
+                miFashionIP + ":" + miFashionPort + miFashionAPI,
+                "consumer_id", mConsumerID,
+                "style_score", String.valueOf(mStyleAnalytics.getStyleScore()),
+                "budget_score", String.valueOf(mStyleAnalytics.getBudgetScore()),
+                "fav_sports", String.valueOf(mStyleAnalytics.getFavSports()),
+                "fav_drinks", String.valueOf(mStyleAnalytics.getFavDrinks()),
+                "prod_rec", String.valueOf(mStyleAnalytics.getProductRecommendation())
+        );
+    }
+
+    private StyleAnalytics createStyleAnalytics() {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (!sharedPref.contains("seekBarGoals1"))
+            // No shared preferences exist
+            return null;
+
+        int [] seekBarState = getSeekBarState();
+        Timepiece timepiece = new Timepiece(getApplicationContext());
+        FavoriteSport favSport = new FavoriteSport(getApplicationContext());
+        FavoriteDrink favDrink = new FavoriteDrink(getApplicationContext());
+
+        return new StyleAnalytics(
+                seekBarState[0],
+                seekBarState[1],
+                seekBarState[2],
+                seekBarState[3],
+                seekBarState[4],
+                seekBarState[5],
+                seekBarState[6],
+                timepiece,
+                favSport,
+                favDrink );
     }
 
     private int[] getSeekBarState() {

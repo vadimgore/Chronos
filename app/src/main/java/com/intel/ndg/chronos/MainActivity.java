@@ -5,11 +5,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.RemoteInput;
@@ -24,23 +26,33 @@ import com.blesh.sdk.classes.Blesh;
 import com.blesh.sdk.classes.BleshInstance;
 import com.blesh.sdk.models.BleshTemplateResult;
 
+import java.util.UUID;
+
 
 public class MainActivity extends ActionBarActivity {
 
-    private Intent mBlesh = null;
-    private Intent mUserProfile = null;
+    private Intent mBlesh;
+    private Intent mUserProfile;
+    private Intent mCloudSettings;
+
     private static final String TAG = "Main Activity:";
     private static final int REQUEST_ENABLE_BT = 0;
+
+    private UUID mConsumerID;
     private StyleConcierge mStyleConcierge;
 
     private static final String IFASHION_IP_ADDRESS = "http://52.10.19.66";
     private static final String IFASHION_PORT = "8080";
     private static final String IFASHION_CONCIERGE_API = "/concierge";
+    private static final String IFASHION_CONSUMER_API = "/consumer";
+    private static final String IFASHION_PROFILE_API = "/profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createConsumerID();
 
         enableBluetooth();
 
@@ -109,10 +121,30 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_profile:
                 editProfile();
                 return true;
+            case R.id.action_cloud_settings:
+                mCloudSettings = new Intent(this, CloudSettingsActivity.class);
+                mCloudSettings.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
+                mCloudSettings.putExtra("@string/port", IFASHION_PORT);
+                startActivity(mCloudSettings);
+                return true;
             case R.id.action_settings:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void createConsumerID() {
+        SharedPreferences sharedPref =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String consumerID = sharedPref.getString("@string/consumer_id", "");
+        if (consumerID.equals("")) {
+            mConsumerID = UUID.randomUUID();
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("@string/consumer_id", mConsumerID.toString());
+            editor.commit();
+        } else {
+            mConsumerID = UUID.fromString(consumerID);
         }
     }
 
@@ -153,6 +185,10 @@ public class MainActivity extends ActionBarActivity {
     private void editProfile() {
         Log.i(TAG, "editProfile");
         mUserProfile = new Intent(this, UserProfileActivity.class);
+        mUserProfile.putExtra("@string/consumer_id", mConsumerID.toString());
+        mUserProfile.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
+        mUserProfile.putExtra("@string/port", IFASHION_PORT);
+        mUserProfile.putExtra("@string/consumer_api", IFASHION_CONSUMER_API);
         startActivity(mUserProfile);
     }
 
@@ -186,10 +222,12 @@ public class MainActivity extends ActionBarActivity {
 
         // Create an intent for the voice reply action
         Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
-        replyIntent.putExtra("@string/extra_concierge_id", mStyleConcierge.getID());
+        replyIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        replyIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
         replyIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
         replyIntent.putExtra("@string/port", IFASHION_PORT);
-        replyIntent.putExtra("@string/api", IFASHION_CONCIERGE_API);
+        replyIntent.putExtra("@string/concierge_api", IFASHION_CONCIERGE_API);
+        replyIntent.putExtra("@string/profile_api", IFASHION_PROFILE_API);
         PendingIntent replyPendingIntent =
                 PendingIntent.getActivity(this, 0, replyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

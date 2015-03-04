@@ -14,12 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.InputMismatchException;
 import java.util.concurrent.ExecutionException;
 
 
@@ -48,13 +46,15 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     String mConsumerID;
     String mConciergeID;
 
+    ProgressDialog mDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_guidance);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog = new ProgressDialog(this);
         mDialog.setMessage("Hang in there, while we connect you to the Style Concierge...");
         mDialog.setCancelable(false);
         mDialog.show();
@@ -81,7 +81,6 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         miFashionAPI = getIntent().getExtras().getString("@string/profile_api");
 
         String conciergeProfile = getConciergeProfile();
-
         try {
             mJSONObj = new JSONObject(conciergeProfile);
             mConciergeName.setText(mJSONObj.get("name").toString());
@@ -118,6 +117,10 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         mDialog.cancel();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

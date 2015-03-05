@@ -224,7 +224,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
 
-        editor.putString("consumer_id", mConsumerID);
+        editor.putString("@string/consumer_id", mConsumerID);
 
         editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
         editor.putInt("seekBarGoals2", mSeekBarGoals2.getProgress());
@@ -240,10 +240,19 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mFavSport.saveState();
         mFavDrink.saveState();
 
+        // Rebuild style analytics
+        mStyleAnalytics = createStyleAnalytics();
+
         Toast.makeText(getApplicationContext(), "Profile saved!", Toast.LENGTH_LONG).show();
     }
 
     private void sendToBackend() {
+
+        if (mStyleAnalytics == null) {
+            // Save profile before uploading
+            saveProfile();
+        }
+
         HttpPoster poster = new HttpPoster(getApplicationContext());
         poster.execute(
                 miFashionIP + ":" + miFashionPort + miFashionAPI,

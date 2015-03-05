@@ -137,6 +137,7 @@ public class MainActivity extends ActionBarActivity {
     public void createConsumerID() {
         SharedPreferences sharedPref =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         String consumerID = sharedPref.getString("@string/consumer_id", "");
         if (consumerID.equals("")) {
             mConsumerID = UUID.randomUUID();

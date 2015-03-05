@@ -54,11 +54,6 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         setContentView(R.layout.activity_personal_guidance);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDialog = new ProgressDialog(this);
-        mDialog.setMessage("Hang in there, while we connect you to the Style Concierge...");
-        mDialog.setCancelable(false);
-        mDialog.show();
-
         mConciergePhoto = (ImageView) findViewById(R.id.concierge_photo);
         mConciergeName = (TextView) findViewById(R.id.concierge_name);
         mConciergeTitle = (TextView) findViewById(R.id.concierge_title);
@@ -79,6 +74,14 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         miFashionIP = getIntent().getExtras().getString("@string/ip_address");
         miFashionPort = getIntent().getExtras().getString("@string/port");
         miFashionAPI = getIntent().getExtras().getString("@string/profile_api");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mDialog = ProgressDialog.show(this, "Chronos",
+                "Hang in there, while we connect you to the Style Concierge...", true);
 
         String conciergeProfile = getConciergeProfile();
         try {
@@ -114,12 +117,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
             mHttpReqStatus.setText(conciergeProfile);
         }
 
-        mDialog.cancel();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        mDialog.dismiss();
     }
 
     @Override

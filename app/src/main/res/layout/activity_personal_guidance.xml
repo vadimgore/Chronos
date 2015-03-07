@@ -23,7 +23,7 @@
                 android:id="@+id/http_request_status"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18dp"
+                android:textSize="22dp"
                 android:textColor="@color/red">
             </TextView>
 
@@ -140,9 +140,7 @@
                     android:visibility="invisible"
                     android:onClick="onDenyProfileSharing"
                     />
-
              </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

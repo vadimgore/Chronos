@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PersonalGuidanceActivity extends ActionBarActivity {
 
-    private static final String TAG = "ConciergeProfActivity";
+    private static final String TAG = "PersonalGuidance";
 
     ImageView mConciergePhoto;
     ImageView mEnglish;
@@ -85,6 +86,9 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
 
         String conciergeProfile = getConciergeProfile();
         try {
+            if (conciergeProfile.equals(""))
+                throw new JSONException("Concierge profile not found");
+
             mJSONObj = new JSONObject(conciergeProfile);
             mConciergeName.setText(mJSONObj.get("name").toString());
             mConciergeTitle.setText(mJSONObj.get("title").toString());
@@ -113,8 +117,9 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
             mDenyProfileSharing.setVisibility(View.VISIBLE);
 
         } catch (JSONException e) {
-            Log.i(TAG, "onCreate: exception " + e.getMessage());
-            mHttpReqStatus.setText(conciergeProfile);
+            Log.i(TAG, "onStart: exception " + conciergeProfile);
+            mHttpReqStatus.setText("No Style Concierges information is available at this time. " +
+                    "We are sorry for the inconvenience!");
         }
 
         mDialog.dismiss();
@@ -149,7 +154,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         String httpURL = intent.getStringExtra("@string/ip_address") + ":" +
                 intent.getStringExtra("@string/port") + intent.getStringExtra("@string/concierge_api");
 
-        Log.i(TAG, "Concierge ID =" + conciergeID);
+        Log.i(TAG, "Concierge ID = " + conciergeID);
 
         String httpResponse = "";
         try {
@@ -175,26 +180,51 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     }
 
     public void onAllowProfileSharing(View view) {
+        try {
+            HttpPoster poster = new HttpPoster(getApplicationContext());
+            String result = poster.execute(
+                    miFashionIP + ":" + miFashionPort + miFashionAPI,
+                    "consumer_id", mConsumerID,
+                    "concierge_id", mConciergeID,
+                    "profile_access", "true"
+            ).get();
 
-        Log.i(TAG, "onAllowProfileSharing called");
-        HttpPoster poster = new HttpPoster(getApplicationContext());
-        poster.execute(
-                miFashionIP + ":" + miFashionPort + miFashionAPI,
-                "consumer_id", mConsumerID,
-                "concierge_id", mConciergeID,
-                "profile_access", "true"
-        );
+            if (result.equalsIgnoreCase("not found")) {
+                Log.i(TAG, "onAllowProfileSharing: consumer profile not found!");
+                Toast.makeText(getApplicationContext(), "Please create your iFashion profile",
+                        Toast.LENGTH_LONG).show();
+            } else if (result.equalsIgnoreCase("profile shared successfully")) {
+                // Start rate concierge activity
+                Intent rateConcierge = new Intent(this, RateConciergeActivity.class);
+                rateConcierge.putExtras(getIntent());
+                startActivity(rateConcierge);
+            }
+
+        } catch (InterruptedException e) {
+            Log.i(TAG, "onAllowProfileSharing:InterruptedException: " + e.getMessage());
+        } catch (ExecutionException e) {
+            Log.i(TAG, "onAllowProfileSharing:ExecutionException: " + e.getMessage());
+        }
     }
 
     public void onDenyProfileSharing(View view) {
-
-        Log.i(TAG, "onDenyProfileSharing called");
-        HttpPoster poster = new HttpPoster(getApplicationContext());
-        poster.execute(
-                miFashionIP + ":" + miFashionPort + miFashionAPI,
-                "consumer_id", mConsumerID,
-                "concierge_id", mConciergeID,
-                "profile_access", "false"
-        );
+        try {
+            HttpPoster poster = new HttpPoster(getApplicationContext());
+            String result = poster.execute(
+                    miFashionIP + ":" + miFashionPort + miFashionAPI,
+                    "consumer_id", mConsumerID,
+                    "concierge_id", mConciergeID,
+                    "profile_access", "false"
+            ).get();
+            if (result.equalsIgnoreCase("not found")) {
+                Log.i(TAG, "onDenyProfileSharing: consumer profile not found!");
+                Toast.makeText(getApplicationContext(), "Please create your iFashion profile",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (InterruptedException e) {
+            Log.i(TAG, "onDenyProfileSharing:InterruptedException: " + e.getMessage());
+        } catch (ExecutionException e) {
+            Log.i(TAG, "onDenyProfileSharing:ExecutionException: " + e.getMessage());
+        }
     }
 }

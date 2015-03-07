@@ -15,8 +15,6 @@ public class BeaconNotificationHandler extends Activity {
     // Key for the string that's delivered in the action's intent
     private static final String TAG = "NotificationHandler";
 
-
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

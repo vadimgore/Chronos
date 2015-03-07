@@ -11,6 +11,11 @@
         android:title="@string/action_cloud_settings"
         app:showAsAction="always" />
 
+    <item android:id="@+id/action_beacon"
+        android:icon="@drawable/beacon"
+        android:title="Beacon"
+        app:showAsAction="always" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

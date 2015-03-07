@@ -94,8 +94,8 @@ public class MainActivity extends ActionBarActivity {
         startBlesh();
 
         /// FOR DEBUGGING TO BYPASS BLESH
-        mStyleConcierge = new StyleConcierge("{\"associate\":{\"name\": \"Jane\", \"uuid\": \"12345\"}}");
-        buildNotification();
+        //mStyleConcierge = new StyleConcierge("{\"associate\":{\"uuid\": \"12345\"}}");
+        //buildNotification();
 
         // Finish activity after 10 sec of inactivity
         //delayedFinish(10);
@@ -126,6 +126,11 @@ public class MainActivity extends ActionBarActivity {
                 mCloudSettings.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
                 mCloudSettings.putExtra("@string/port", IFASHION_PORT);
                 startActivity(mCloudSettings);
+                return true;
+            case R.id.action_beacon:
+                if (mStyleConcierge == null)
+                    mStyleConcierge = new StyleConcierge("{\"associate\":{\"uuid\": \"12345\"}}");
+                buildNotification();
                 return true;
             case R.id.action_settings:
                 return true;

@@ -58,5 +58,10 @@
     <string name="port_hint">Enter iFashion port</string>
 
     <string name="action_cloud_settings">Cloud Settings</string>
+    <string name="action_beacon">Beacon Signal</string>
+
+    <string name="no_concierge_available">No Style Concierges are available at this location</string>
+    <string name="title_activity_rate_concierge">Rate Concierge</string>
+
 
 </resources>

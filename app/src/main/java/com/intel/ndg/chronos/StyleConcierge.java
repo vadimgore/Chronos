@@ -11,16 +11,13 @@ import org.json.JSONObject;
 public class StyleConcierge {
     private final static String TAG = "StyleConcierge";
 
-    private String mName;
     private String mID;
-
 
     StyleConcierge(String profile) {
 
         try {
             JSONObject jsonObj = new JSONObject(new JSONObject(profile).getString("associate"));
             if (jsonObj != null) {
-                mName = jsonObj.getString("name");
                 mID = jsonObj.getString("uuid");
             }
         }
@@ -29,9 +26,6 @@ public class StyleConcierge {
         }
     }
 
-    public String getName() {
-        return mName;
-    }
 
     public String getID() {
         return mID;

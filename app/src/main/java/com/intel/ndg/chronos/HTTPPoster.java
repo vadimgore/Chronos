@@ -36,7 +36,7 @@ class HttpPoster extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         String urlString = params[0]; // URL to call
 
-        StringBuilder builder = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(urlString);
         HttpResponse response;
@@ -58,12 +58,13 @@ class HttpPoster extends AsyncTask<String, String, String> {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(content));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    builder.append(line);
+                    result.append(line);
                 }
-                Log.i(TAG, "Your data: " + builder.toString()); //response data
+                Log.i(TAG, "Your data: " + result.toString()); //response data
             } else {
                 Log.e(TAG, "Failed with error: " + statusLine.getReasonPhrase());
-                Toast.makeText(mContext, TAG + ":error: " + statusLine.getReasonPhrase(), Toast.LENGTH_LONG).show();
+                result.append(statusLine.getReasonPhrase());
+                //Toast.makeText(mContext, TAG + ":error: " + statusLine.getReasonPhrase(), Toast.LENGTH_LONG).show();
             }
         } catch (ClientProtocolException e) {
             System.out.println(e.getMessage());
@@ -76,7 +77,7 @@ class HttpPoster extends AsyncTask<String, String, String> {
             return e.getMessage();
         }
 
-        return builder.toString();
+        return result.toString();
     }
 
     protected void onPostExecute(String result) {

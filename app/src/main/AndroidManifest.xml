@@ -23,7 +23,8 @@
         tools:replace="android:allowBackup" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,6 +78,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_user_profile"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
@@ -84,6 +86,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="BeaconNotificationHandler"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
@@ -91,6 +94,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_personal_guidance"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
@@ -98,13 +102,23 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_explore_on_my_own"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".CloudSettingsActivity"
-            android:label="@string/title_activity_cloud_settings"
             android:enabled="true"
             android:exported="true"
+            android:label="@string/title_activity_cloud_settings"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name=".RateConciergeActivity"
+            android:label="@string/title_activity_rate_concierge"
+            android:enabled="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" >
         </activity>
     </application>

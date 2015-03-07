@@ -51,6 +51,7 @@ class HttpGetter extends AsyncTask<String, String, String> {
                 Log.i("Getter", "Your data: " + result.toString()); //response data
             } else {
                 Log.e("Getter", "Failed with error: " + statusLine.getReasonPhrase());
+                result.append(statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {
             result.append(e.getMessage());

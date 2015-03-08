@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,13 +34,18 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     ImageView mFrench;
     ImageView mSpanish;
     ImageView mGerman;
+
+    TextView mHttpReqStatus;
+
     TextView mConciergeName;
     TextView mConciergeTitle;
     TextView mConciergeSpecialties;
+    RatingBar mConciergeRating;
+    TextView mConciergeReviews;
+
+    LinearLayout mProfileSharingLayout;
     TextView mShareProfileReq;
-    TextView mHttpReqStatus;
-    Button mAllowProfileSharing;
-    Button mDenyProfileSharing;
+    EditText mProfileSharingTimePicker;
 
     JSONObject mJSONObj;
 
@@ -60,6 +68,10 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         mConciergeTitle = (TextView) findViewById(R.id.concierge_title);
         mConciergeSpecialties = (TextView) findViewById(R.id.concierge_specialties);
         mShareProfileReq = (TextView) findViewById(R.id.share_profile_request);
+        mConciergeRating = (RatingBar) findViewById(R.id.concierge_rating);
+        mConciergeReviews = (TextView) findViewById(R.id.customer_reviews);
+        mProfileSharingLayout = (LinearLayout) findViewById(R.id.profile_sharing_layout);
+
         mHttpReqStatus = (TextView) findViewById(R.id.http_request_status);
 
         mEnglish = (ImageView) findViewById(R.id.language_english);
@@ -67,8 +79,8 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         mSpanish = (ImageView) findViewById(R.id.language_spanish);
         mGerman = (ImageView) findViewById(R.id.language_german);
 
-        mAllowProfileSharing = (Button) findViewById(R.id.allow_profile_sharing);
-        mDenyProfileSharing = (Button) findViewById(R.id.deny_profile_sharing);
+        mProfileSharingTimePicker = (EditText) findViewById(R.id.profile_sharing_time_picker);
+        mProfileSharingTimePicker.setText("30");
 
         mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
         mConciergeID = getIntent().getExtras().getString("@string/concierge_id");
@@ -95,6 +107,19 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
             mConciergeSpecialties.setText("Specializes in " + mJSONObj.get("specialty").toString());
             mShareProfileReq.setText("Allow " + mJSONObj.get("name") + " to access Style Analytics?");
 
+            JSONArray ratings = new JSONArray(mJSONObj.get("rating").toString());
+            int numReviews = ratings.length();
+            float rating = 0;
+            if (numReviews > 0) {
+                for (int i = 0; i < numReviews; i++) {
+                    JSONObject r = ratings.getJSONObject(i);
+                    rating += Float.parseFloat(r.get("rating").toString());
+                }
+                rating /= numReviews;
+            }
+            mConciergeRating.setRating(rating);
+            mConciergeReviews.setText(numReviews + " consumer reviews");
+
             String encodedPhoto = mJSONObj.get("photo").toString();
             Bitmap conciergePhoto = decodeBitmap(encodedPhoto);
             mConciergePhoto.setImageBitmap(conciergePhoto);
@@ -113,8 +138,9 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
                 mGerman.setImageResource(R.drawable.german);
             }
 
-            mAllowProfileSharing.setVisibility(View.VISIBLE);
-            mDenyProfileSharing.setVisibility(View.VISIBLE);
+            mConciergeRating.setVisibility(View.VISIBLE);
+            mShareProfileReq.setVisibility(View.VISIBLE);
+            mProfileSharingLayout.setVisibility(View.VISIBLE);
 
         } catch (JSONException e) {
             Log.i(TAG, "onStart: exception " + conciergeProfile);
@@ -186,7 +212,8 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
                     miFashionIP + ":" + miFashionPort + miFashionAPI,
                     "consumer_id", mConsumerID,
                     "concierge_id", mConciergeID,
-                    "profile_access", "true"
+                    "profile_access", "true",
+                    "access_time", mProfileSharingTimePicker.getText().toString()
             ).get();
 
             if (result.equalsIgnoreCase("not found")) {
@@ -220,6 +247,11 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
                 Log.i(TAG, "onDenyProfileSharing: consumer profile not found!");
                 Toast.makeText(getApplicationContext(), "Please create your iFashion profile",
                         Toast.LENGTH_LONG).show();
+            } else if (result.equalsIgnoreCase("profile shared successfully")) {
+                // Start rate concierge activity
+                Intent rateConcierge = new Intent(this, RateConciergeActivity.class);
+                rateConcierge.putExtras(getIntent());
+                startActivity(rateConcierge);
             }
         } catch (InterruptedException e) {
             Log.i(TAG, "onDenyProfileSharing:InterruptedException: " + e.getMessage());

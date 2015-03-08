@@ -1,5 +1,4 @@
 <resources>
-
-    <color name="BLESHCOLOR_blackOverlay">#44000000</color>
-
+    <color name="blesh_color_blackoverlay">#44000000</color>
+    <color name="blesh_color_transparent">#22559955</color>
 </resources>

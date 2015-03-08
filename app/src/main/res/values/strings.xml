@@ -7,7 +7,7 @@
     <string name="save_profile">Save</string>
     <string name="title_activity_user_profile">Edit Profile</string>
     <string name="title_notification">STYLE CONCIERGES</string>
-    <string name="content_notification">for you service</string>
+    <string name="content_notification">for your service</string>
     <string name="voice_reply_action_label">Concierge</string>
     <string name="voice_reply_choice_1">Explore on my own</string>
     <string name="voice_reply_choice_2">Personal guidance</string>

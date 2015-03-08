@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -66,7 +65,7 @@ public class RateConciergeActivity extends ActionBarActivity {
     }
 
     public void onRatingSubmit(View view) {
-        int rating = mRatingBar.getNumStars();
+        float rating = mRatingBar.getRating();
         Log.i(TAG, "Concierge rating is " + rating + " stars");
 
         try {

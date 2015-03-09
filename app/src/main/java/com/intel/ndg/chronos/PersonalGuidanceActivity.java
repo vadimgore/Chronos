@@ -6,8 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +82,19 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         mGerman = (ImageView) findViewById(R.id.language_german);
 
         mProfileSharingTimePicker = (EditText) findViewById(R.id.profile_sharing_time_picker);
-        mProfileSharingTimePicker.setText("30");
+        mProfileSharingTimePicker.setText("10");
+        mProfileSharingTimePicker.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    Toast.makeText(getApplicationContext(), "Enter pressed", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
         mConciergeID = getIntent().getExtras().getString("@string/concierge_id");

@@ -246,6 +246,11 @@ public class MainActivity extends ActionBarActivity {
 
         // Create an intent for editing profile
         Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
+        editProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        editProfileIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
+        editProfileIntent.putExtra("@string/port", IFASHION_PORT);
+        editProfileIntent.putExtra("@string/consumer_api", IFASHION_CONSUMER_API);
+
         PendingIntent editProfilePendingIntent =
                 PendingIntent.getActivity(this, 0, editProfileIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

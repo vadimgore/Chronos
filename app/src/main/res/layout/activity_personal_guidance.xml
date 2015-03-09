@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -40,9 +40,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:baselineAligned="true"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -65,26 +64,21 @@
                         </View>
                         <ImageView
                             android:id="@+id/language_english"
-                            android:layout_marginLeft="50dp"
-                            android:layout_gravity="right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         </ImageView>
                         <ImageView
                             android:id="@+id/language_french"
-                            android:layout_gravity="right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         </ImageView>
                         <ImageView
                             android:id="@+id/language_spanish"
-                            android:layout_gravity="right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         </ImageView>
                         <ImageView
                             android:id="@+id/language_german"
-                            android:layout_gravity="right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         </ImageView>
@@ -196,4 +190,4 @@
              </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

@@ -13,7 +13,9 @@ public class StyleAnalytics {
 
     enum Factor {
         LOW,
+        LOW_MEDIUM,
         MEDIUM,
+        MEDIUM_HIGH,
         HIGH
     }
 

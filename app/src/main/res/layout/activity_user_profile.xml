@@ -251,7 +251,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:max="4"/>
+                android:max="2"/>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -288,47 +288,6 @@
             </RelativeLayout>
 
             <TextView
-                android:text="TIMEPIECE MATERIALS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <CheckBox android:id="@+id/checkbox_Gold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="gold"
-                    android:onClick="onMaterialsCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Titan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="titan"
-                    android:onClick="onMaterialsCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Diamonds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="diamonds"
-                    android:onClick="onMaterialsCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Leather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="leather"
-                    android:onClick="onMaterialsCheckboxClicked"/>
-            </LinearLayout>
-
-            <TextView
                 android:text="TIMEPIECE STYLE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -363,6 +322,42 @@
             </LinearLayout>
 
             <TextView
+                android:text="BRACELET/STRAP MATERIAL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/gray">
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/leather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Leather"
+                        android:onClick="onMaterialsRadioButtonClicked"/>
+                    <RadioButton android:id="@+id/steel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Steel"
+                        android:onClick="onMaterialsRadioButtonClicked"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <TextView
                 android:text="WRIST SIZE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -380,7 +375,7 @@
             <SeekBar android:id="@+id/seekBar7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="4"/>
+                android:max="2"/>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -416,7 +411,7 @@
             </RelativeLayout>
 
             <TextView
-                android:text="FAVORITE SPORT"
+                android:text="FAVORITE ACTIVITY"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -438,17 +433,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Football"
-                    android:onClick="onFavSportsCheckboxClicked"/>
+                    android:onClick="onFavActivitiesCheckboxClicked"/>
                 <CheckBox android:id="@+id/checkbox_Basketball"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Basketball"
-                    android:onClick="onFavSportsCheckboxClicked"/>
+                    android:onClick="onFavActivitiesCheckboxClicked"/>
                 <CheckBox android:id="@+id/checkbox_Golf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Golf"
-                    android:onClick="onFavSportsCheckboxClicked"/>
+                    android:onClick="onFavActivitiesCheckboxClicked"/>
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="horizontal"
@@ -458,12 +453,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Formula 1"
-                    android:onClick="onFavSportsCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Watersports"
+                    android:onClick="onFavActivitiesCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_Diving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Watersports"
-                    android:onClick="onFavSportsCheckboxClicked"/>
+                    android:text="Diving"
+                    android:onClick="onFavActivitiesCheckboxClicked"/>
             </LinearLayout>
 
             <TextView

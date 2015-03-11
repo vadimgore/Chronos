@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -89,7 +88,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    Toast.makeText(getApplicationContext(), "Enter pressed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Enter pressed", Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;

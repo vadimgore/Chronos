@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 class Watchface {
@@ -68,65 +69,74 @@ class Watchface {
  */
 public class Timepiece {
 
-    enum Material {
-        Gold,
-        Titan,
-        Diamonds,
+    enum StrapMaterial {
+        Steel,
         Leather
     }
 
-    ArrayList<Material> mMaterials;
+    ArrayList<String> mProperties;
+    StrapMaterial mStrapMaterial;
     Watchface mFace;
     Context mContext;
     SharedPreferences mSharedPref;
 
     public Timepiece(Context aContext) {
         mContext = aContext;
-        mMaterials = new ArrayList<>();
+        mProperties = new ArrayList<>();
+        mStrapMaterial = StrapMaterial.Leather;
         mFace = new Watchface(mContext);
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         restoreState();
     }
 
-    public ArrayList<Material> getMaterials() {
-        return mMaterials;
+    public ArrayList<String> getProperties() {
+        return mProperties;
     }
 
-    public void addMaterial(Material m) {
-        if (!mMaterials.contains(m))
-            mMaterials.add(m);
+    public void addProperty(String s) {
+        if (!mProperties.contains(s))
+            mProperties.add(s);
     }
 
-    public void removeMaterial(Material m) {
-        if (mMaterials.contains(m))
-            mMaterials.remove(m);
+    public void removeProperty(String s) {
+        if (mProperties.contains(s))
+            mProperties.remove(s);
     }
 
     public void setWatchface(Watchface aFace) {
         mFace = aFace;
     }
 
+    public void setStrapMaterial(StrapMaterial aMaterial) {
+        mStrapMaterial = aMaterial;
+    }
+
     public Watchface getWatchface() {
         return mFace;
+    }
+
+    public StrapMaterial getStrapMaterial() {
+        return mStrapMaterial;
     }
 
     public void saveState() {
 
         mFace.saveState();
         SharedPreferences.Editor editor = mSharedPref.edit();
-        for (Material m : mMaterials) {
-            editor.putInt(m.name(), m.ordinal());
+        editor.putInt("StrapMaterial", mStrapMaterial.ordinal());
+        StringBuilder strBuilder = new StringBuilder();
+        for (String s : mProperties) {
+            strBuilder.append(s);
+            strBuilder.append(",");
         }
-
+        editor.putString("Properties", strBuilder.toString());
         editor.commit();
     }
 
     public void restoreState() {
         mFace.restoreState();
-        for (Material m : Material.values()) {
-            int i = mSharedPref.getInt(m.name(), -1);
-            if (i > -1)
-                mMaterials.add(m);
-        }
+        mStrapMaterial = StrapMaterial.values()[mSharedPref.getInt("StrapMaterial", 0)];
+        String props = mSharedPref.getString("Properties", "");
+        mProperties.addAll(Arrays.asList(props.split("\\s*,\\s*")));
     }
 }

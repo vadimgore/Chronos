@@ -1,17 +1,8 @@
 package com.intel.ndg.chronos;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-/**
- * Created by Vadim on 2/24/2015.
- */
-
-
-
 public class StyleAnalytics {
 
-    enum Factor {
+    enum Range {
         LOW,
         LOW_MEDIUM,
         MEDIUM,
@@ -31,32 +22,32 @@ public class StyleAnalytics {
         OCCASIONAL
     }
 
-    private Factor mCoolness;
-    private Factor mVisibility;
-    private Factor mImpression;
-    private Factor mConvenience;
-    private Factor mBudget;
+    private Range mCoolness;
+    private Range mVisibility;
+    private Range mImpression;
+    private Range mConvenience;
+    private Range mBudget;
     private Usage mUsage;
     private WristSize mWristSize;
     private Timepiece mTimepiece;
-    private FavoriteSport mFavSport;
+    private FavoriteActivity mFavActivity;
     private FavoriteDrink mFavDrink;
 
     private int mStyleScore = 0;
 
     StyleAnalytics(int coolness, int visibility, int impression, int convenience,
                    int budget, int usage, int wristSize, Timepiece timepiece,
-                   FavoriteSport favSport, FavoriteDrink favDrink) {
+                   FavoriteActivity favActivity, FavoriteDrink favDrink) {
 
-        mCoolness = Factor.values()[coolness];
-        mVisibility = Factor.values()[visibility];
-        mImpression = Factor.values()[impression];
-        mConvenience = Factor.values()[convenience];
-        mBudget = Factor.values()[budget];
+        mCoolness = Range.values()[coolness];
+        mVisibility = Range.values()[visibility];
+        mImpression = Range.values()[impression];
+        mConvenience = Range.values()[convenience];
+        mBudget = Range.values()[budget];
         mUsage = Usage.values()[usage];
         mWristSize = WristSize.values()[wristSize];
         mTimepiece = timepiece;
-        mFavSport = favSport;
+        mFavActivity = favActivity;
         mFavDrink = favDrink;
 
         buildStyleScore();
@@ -77,42 +68,24 @@ public class StyleAnalytics {
     }
 
     public String getProductRecommendation() {
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append("A ");
-        strBuilder.append(mTimepiece.getWatchface().getShape().name());
-        strBuilder.append(" face ");
-        strBuilder.append(mTimepiece.getWatchface().getType().name());
-        strBuilder.append(" for ");
-        strBuilder.append(mUsage.name());
-        strBuilder.append(" usage on ");
-        strBuilder.append(mWristSize.name());
-        strBuilder.append(" wrist. ");
-        strBuilder.append("Preferred materials: ");
-        int i = 0;
-        int size = mTimepiece.getMaterials().size();
-        for (Timepiece.Material m : mTimepiece.getMaterials()) {
-            strBuilder.append(m.name());
-            if (i < size-1)
-                strBuilder.append(", ");
-            else
-                strBuilder.append(".");
-            i++;
-        }
+        String prodRec = "";
+        prodRec += "Watch face: " + mTimepiece.getWatchface().getShape().name() + "\n";
+        prodRec += "Watch type: " + mTimepiece.getWatchface().getType().name() + "\n";
+        prodRec += "Strap material: " + mTimepiece.getStrapMaterial().name() + "\n";
+        prodRec += "Usage: " + mUsage.name() + "\n";
+        prodRec +="Wrist size: " + mWristSize.name() + "\n";
 
-        return strBuilder.toString();
+        return prodRec;
     }
 
-    public String getFavSports() {
+    public String getFavActivities() {
         StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append("Customer's favorite sports are: ");
         int i = 0;
-        int size = mFavSport.getSports().size();
-        for (FavoriteSport.Sport s : mFavSport.getSports()) {
+        int size = mFavActivity.getActivities().size();
+        for (FavoriteActivity.Activity s : mFavActivity.getActivities()) {
             strBuilder.append(s.name());
             if (i < size-1)
                 strBuilder.append(", ");
-            else
-                strBuilder.append(".");
         }
 
         return strBuilder.toString();
@@ -120,18 +93,14 @@ public class StyleAnalytics {
 
     public String getFavDrinks() {
         StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append("Customer's favorite drinks are: ");
         int i = 0;
         int size = mFavDrink.getDrinks().size();
         for (FavoriteDrink.Drink d : mFavDrink.getDrinks()) {
             strBuilder.append(d.name());
             if (i < size-1)
                 strBuilder.append(", ");
-            else
-                strBuilder.append(".");
         }
 
         return strBuilder.toString();
     }
-
 }

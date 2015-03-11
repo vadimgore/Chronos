@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 public class UserProfileActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "User Profile Activity:";
     private Timepiece mTimepiece;
-    private FavoriteSport mFavSport;
+    private FavoriteActivity mFavActivity;
     private FavoriteDrink mFavDrink;
 
     private SeekBar mSeekBarGoals1;
@@ -29,6 +30,8 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private SeekBar mSeekBarWrist;
     private Spinner mWatchfaceShapeSpinner;
     private Spinner mWatchfaceTypeSpinner;
+    private RadioButton mStrapLeather;
+    private RadioButton mStrapSteel;
 
     private String mConsumerID;
     private String miFashionIP;
@@ -64,8 +67,11 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mWatchfaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
         mWatchfaceTypeSpinner.setOnItemSelectedListener(this);
 
+        mStrapLeather = (RadioButton) findViewById(R.id.leather);
+        mStrapSteel = (RadioButton) findViewById(R.id.steel);
+
         mTimepiece = new Timepiece(getApplicationContext());
-        mFavSport = new FavoriteSport(getApplicationContext());
+        mFavActivity = new FavoriteActivity(getApplicationContext());
         mFavDrink = new FavoriteDrink(getApplicationContext());
 
         restoreProfile();
@@ -76,7 +82,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
             Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
             Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
-            Log.i(TAG, "Favorite Sports = " + mStyleAnalytics.getFavSports());
+            Log.i(TAG, "Favorite Activities = " + mStyleAnalytics.getFavActivities());
             Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
         }
     }
@@ -114,42 +120,26 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         return super.onOptionsItemSelected(item);
     }
 
-    public void onMaterialsCheckboxClicked(View view) {
+    public void onMaterialsRadioButtonClicked(View view) {
         // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
+        boolean checked = ((RadioButton) view).isChecked();
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.checkbox_Gold:
+            case R.id.leather:
                 if (checked)
-                    mTimepiece.addMaterial(Timepiece.Material.Gold);
-                else
-                    mTimepiece.removeMaterial(Timepiece.Material.Gold);
+                    mTimepiece.setStrapMaterial(Timepiece.StrapMaterial.Leather);
                 break;
-            case R.id.checkbox_Titan:
+            case R.id.steel:
                 if (checked)
-                    mTimepiece.addMaterial(Timepiece.Material.Titan);
-                else
-                    mTimepiece.removeMaterial(Timepiece.Material.Titan);
-                break;
-            case R.id.checkbox_Diamonds:
-                if (checked)
-                    mTimepiece.addMaterial(Timepiece.Material.Diamonds);
-                else
-                    mTimepiece.removeMaterial(Timepiece.Material.Diamonds);
-                break;
-            case R.id.checkbox_Leather:
-                if (checked)
-                    mTimepiece.addMaterial(Timepiece.Material.Leather);
-                else
-                    mTimepiece.removeMaterial(Timepiece.Material.Leather);
+                    mTimepiece.setStrapMaterial(Timepiece.StrapMaterial.Steel);
                 break;
             default:
                 break;
         }
     }
 
-    public void onFavSportsCheckboxClicked(View view) {
+    public void onFavActivitiesCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -157,33 +147,33 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         switch(view.getId()) {
             case R.id.checkbox_Football:
                 if (checked)
-                    mFavSport.addSport(FavoriteSport.Sport.Football);
+                    mFavActivity.addActivity(FavoriteActivity.Activity.Football);
                 else
-                    mFavSport.removeSport(FavoriteSport.Sport.Football);
+                    mFavActivity.removeActivity(FavoriteActivity.Activity.Football);
                 break;
             case R.id.checkbox_Basketball:
                 if (checked)
-                    mFavSport.addSport(FavoriteSport.Sport.Basketball);
+                    mFavActivity.addActivity(FavoriteActivity.Activity.Basketball);
                 else
-                    mFavSport.removeSport(FavoriteSport.Sport.Basketball);
+                    mFavActivity.removeActivity(FavoriteActivity.Activity.Basketball);
                 break;
             case R.id.checkbox_Golf:
                 if (checked)
-                    mFavSport.addSport(FavoriteSport.Sport.Golf);
+                    mFavActivity.addActivity(FavoriteActivity.Activity.Golf);
                 else
-                    mFavSport.removeSport(FavoriteSport.Sport.Golf);
+                    mFavActivity.removeActivity(FavoriteActivity.Activity.Golf);
                 break;
             case R.id.checkbox_Formula_1:
                 if (checked)
-                    mFavSport.addSport(FavoriteSport.Sport.Formula_1);
+                    mFavActivity.addActivity(FavoriteActivity.Activity.Formula_1);
                 else
-                    mFavSport.removeSport(FavoriteSport.Sport.Formula_1);
+                    mFavActivity.removeActivity(FavoriteActivity.Activity.Formula_1);
                 break;
-            case R.id.checkbox_Watersports:
+            case R.id.checkbox_Diving:
                 if (checked)
-                    mFavSport.addSport(FavoriteSport.Sport.Watersports);
+                    mFavActivity.addActivity(FavoriteActivity.Activity.Diving);
                 else
-                    mFavSport.removeSport(FavoriteSport.Sport.Watersports);
+                    mFavActivity.removeActivity(FavoriteActivity.Activity.Diving);
                 break;
             default:
                 break;
@@ -237,7 +227,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         editor.commit();
 
         mTimepiece.saveState();
-        mFavSport.saveState();
+        mFavActivity.saveState();
         mFavDrink.saveState();
 
         // Rebuild style analytics
@@ -259,7 +249,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
                 "consumer_id", mConsumerID,
                 "style_score", String.valueOf(mStyleAnalytics.getStyleScore()),
                 "budget_score", String.valueOf(mStyleAnalytics.getBudgetScore()),
-                "fav_sports", String.valueOf(mStyleAnalytics.getFavSports()),
+                "fav_activities", String.valueOf(mStyleAnalytics.getFavActivities()),
                 "fav_drinks", String.valueOf(mStyleAnalytics.getFavDrinks()),
                 "prod_rec", String.valueOf(mStyleAnalytics.getProductRecommendation())
         );
@@ -274,7 +264,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
 
         int [] seekBarState = getSeekBarState();
         Timepiece timepiece = new Timepiece(getApplicationContext());
-        FavoriteSport favSport = new FavoriteSport(getApplicationContext());
+        FavoriteActivity favActivity = new FavoriteActivity(getApplicationContext());
         FavoriteDrink favDrink = new FavoriteDrink(getApplicationContext());
 
         return new StyleAnalytics(
@@ -286,7 +276,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
                 seekBarState[5],
                 seekBarState[6],
                 timepiece,
-                favSport,
+                favActivity,
                 favDrink );
     }
 
@@ -316,25 +306,27 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mSeekBarUsage.setProgress(seekBarState[5]);
         mSeekBarWrist.setProgress(seekBarState[6]);
 
-        // Restore Timepiece materials
-        if (mTimepiece.getMaterials() != null) {
-            for (Timepiece.Material m : mTimepiece.getMaterials()) {
-                int id = getResources().getIdentifier("checkbox_" + m.name(), "id", getPackageName());
-                CheckBox checkBox = (CheckBox) findViewById(id);
-                if (checkBox != null)
-                    checkBox.setChecked(true);
-            }
-        }
-
         // Restore Timepiece style
         Spinner watchFaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
         watchFaceShapeSpinner.setSelection(mTimepiece.getWatchface().getShape().ordinal());
         Spinner watchFaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
         watchFaceTypeSpinner.setSelection(mTimepiece.getWatchface().getType().ordinal());
 
-        // Restore Favorite Sport state
-        if (mFavSport.getSports() != null) {
-            for (FavoriteSport.Sport s : mFavSport.getSports()) {
+        // Restore strap material
+        switch (mTimepiece.getStrapMaterial()) {
+            case Leather:
+                mStrapLeather.setChecked(true);
+                break;
+            case Steel:
+                mStrapSteel.setChecked(true);
+                break;
+            default:
+                break;
+        }
+
+        // Restore Favorite Activity state
+        if (mFavActivity.getActivities() != null) {
+            for (FavoriteActivity.Activity s : mFavActivity.getActivities()) {
                 int id = getResources().getIdentifier("checkbox_" + s.name(), "id", getPackageName());
                 CheckBox checkBox = (CheckBox) findViewById(id);
                 if (checkBox != null)

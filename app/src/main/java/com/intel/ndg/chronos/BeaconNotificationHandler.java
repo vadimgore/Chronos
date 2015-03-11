@@ -25,15 +25,17 @@ public class BeaconNotificationHandler extends Activity {
             Log.i(TAG, userResponse);
             //Toast.makeText(getApplicationContext(), "You requested " + userResponse, Toast.LENGTH_LONG).show();
 
-            Intent userResponseHandler = null;
+            Intent userResponseHandler;
             if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
                 userResponseHandler = new Intent(this, ExploreOnMyOwnActivity.class);
             } else if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
                 userResponseHandler = new Intent(this, PersonalGuidanceActivity.class);
             } else {
                 Toast.makeText(getApplicationContext(),
-                        "We cannot handle this request at this time",
+                        "Invalid response " + "'" + userResponse + "'. Please try again.",
                         Toast.LENGTH_LONG).show();
+                finish();
+                return;
             }
 
             userResponseHandler.putExtras(getIntent());

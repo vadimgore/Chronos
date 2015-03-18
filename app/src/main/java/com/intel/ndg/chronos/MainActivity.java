@@ -262,8 +262,8 @@ public class MainActivity extends ActionBarActivity {
                         .build();
 
         // Create an intent for quick profile sharing
-        Intent shareProfileIntent = new Intent(this, RateConciergeActivity.class);
-        shareProfileIntent.putExtra("@string/quick_share", true);
+        Intent shareProfileIntent = new Intent(this, PersonalGuidanceActivity.class);
+        shareProfileIntent.putExtra("@string/quick_share", "true");
         shareProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
         shareProfileIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
         shareProfileIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);

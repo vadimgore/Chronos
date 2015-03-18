@@ -33,7 +33,7 @@
     </string-array>
 
     <string name="edit_profile_action_label">Profile</string>
-    <string name="share_profile_action_label">Do it!</string>
+    <string name="share_profile_action_label">Share</string>
 
     <string name="ip_address">ip_address</string>
     <string name="port">port</string>

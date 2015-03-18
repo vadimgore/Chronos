@@ -20,8 +20,8 @@ public class RateConciergeActivity extends ActionBarActivity {
 
     private String mRateConciergeAPI = "/concierge_rating";
 
-    private String miFashionIP;
-    private String miFashionPort;
+    private String mBackendIP;
+    private String mBackendPort;
     private String mConsumerID;
     private String mConciergeID;
 
@@ -35,8 +35,8 @@ public class RateConciergeActivity extends ActionBarActivity {
 
         mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
         mConciergeID = getIntent().getExtras().getString("@string/concierge_id");
-        miFashionIP = getIntent().getExtras().getString("@string/ip_address");
-        miFashionPort = getIntent().getExtras().getString("@string/port");
+        mBackendIP = getIntent().getExtras().getString("@string/ip_address");
+        mBackendPort = getIntent().getExtras().getString("@string/port");
 
         mRatingBar = (RatingBar) findViewById(R.id.rating_bar);
     }
@@ -75,7 +75,7 @@ public class RateConciergeActivity extends ActionBarActivity {
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
 
             String result = poster.execute(
-                    miFashionIP + ":" + miFashionPort + mRateConciergeAPI,
+                    mBackendIP + ":" + mBackendPort + mRateConciergeAPI,
                     "consumer_id", mConsumerID,
                     "concierge_id", mConciergeID,
                     "rating", String.valueOf(rating),

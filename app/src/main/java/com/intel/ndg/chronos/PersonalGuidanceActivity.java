@@ -56,6 +56,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     String mConsumerID;
     String mConciergeID;
     String mConciergeProfile;
+    Boolean mQuickShare;
 
     ProgressDialog mProgressDialog;
 
@@ -96,6 +97,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
             }
         });
 
+        mQuickShare = Boolean.parseBoolean(getIntent().getExtras().getString("@string/quick_share"));
         mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
         mConciergeID = getIntent().getExtras().getString("@string/concierge_id");
         miFashionIP = getIntent().getExtras().getString("@string/ip_address");
@@ -108,6 +110,11 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (mQuickShare) {
+            onAllowProfileSharing(null);
+            return;
+        }
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle("Chronos");

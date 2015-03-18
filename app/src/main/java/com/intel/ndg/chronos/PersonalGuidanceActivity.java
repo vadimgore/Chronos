@@ -55,8 +55,9 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
     String miFashionAPI;
     String mConsumerID;
     String mConciergeID;
+    String mConciergeProfile;
 
-    ProgressDialog mDialog;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,68 +101,101 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         miFashionIP = getIntent().getExtras().getString("@string/ip_address");
         miFashionPort = getIntent().getExtras().getString("@string/port");
         miFashionAPI = getIntent().getExtras().getString("@string/profile_api");
+
+        mConciergeProfile = "";
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        mDialog = ProgressDialog.show(this, "Chronos",
-                "Hang in there, while we connect you to the Style Concierge...", true);
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Chronos");
+        mProgressDialog.setMessage("Hang in there while we connect you to the Fashion Concierge...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(true);
+        mProgressDialog.show();
 
-        String conciergeProfile = getConciergeProfile();
-        try {
-            if (conciergeProfile.equals(""))
-                throw new JSONException("Concierge profile not found");
+        new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                try {
+                    mConciergeProfile = getConciergeProfile();
 
-            mJSONObj = new JSONObject(conciergeProfile);
-            mConciergeName.setText(mJSONObj.get("name").toString());
-            mConciergeTitle.setText(mJSONObj.get("title").toString());
-            mConciergeSpecialties.setText("Specializes in " + mJSONObj.get("specialty").toString());
-            mShareProfileReq.setText("Allow " + mJSONObj.get("name") + " to access Style Analytics?");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                if (mConciergeProfile.equals(""))
+                                    throw new JSONException("Concierge profile not found");
 
-            JSONArray ratings = new JSONArray(mJSONObj.get("rating").toString());
-            int numReviews = ratings.length();
-            float rating = 0;
-            if (numReviews > 0) {
-                for (int i = 0; i < numReviews; i++) {
-                    JSONObject r = ratings.getJSONObject(i);
-                    rating += Float.parseFloat(r.get("rating").toString());
+                                mJSONObj = new JSONObject(mConciergeProfile);
+                                mConciergeName.setText(mJSONObj.get("name").toString());
+                                mConciergeTitle.setText(mJSONObj.get("title").toString());
+                                mConciergeSpecialties.setText("Specializes in " + mJSONObj.get("specialty").toString());
+                                mShareProfileReq.setText("Allow " + mJSONObj.get("name") + " to access Style Analytics?");
+
+                                JSONArray ratings = new JSONArray(mJSONObj.get("rating").toString());
+                                int numReviews = ratings.length();
+                                float rating = 0;
+                                if (numReviews > 0) {
+                                    for (int i = 0; i < numReviews; i++) {
+                                        JSONObject r = ratings.getJSONObject(i);
+                                        rating += Float.parseFloat(r.get("rating").toString());
+                                    }
+                                    rating /= numReviews;
+                                }
+                                mConciergeRating.setRating(rating);
+                                mConciergeReviews.setText(numReviews + " consumer reviews");
+
+                                String encodedPhoto = mJSONObj.get("photo").toString();
+                                Bitmap conciergePhoto = decodeBitmap(encodedPhoto);
+                                mConciergePhoto.setImageBitmap(conciergePhoto);
+
+                                String languages = mJSONObj.get("languages").toString();
+                                if (languages.contains("English")) {
+                                    mEnglish.setImageResource(R.drawable.english);
+                                }
+                                if (languages.contains("French")) {
+                                    mFrench.setImageResource(R.drawable.french);
+                                }
+                                if (languages.contains("Spanish")) {
+                                    mSpanish.setImageResource(R.drawable.spanish);
+                                }
+                                if (languages.contains("German")) {
+                                    mGerman.setImageResource(R.drawable.german);
+                                }
+
+                                mConciergeRating.setVisibility(View.VISIBLE);
+                                mShareProfileReq.setVisibility(View.VISIBLE);
+                                mProfileSharingLayout.setVisibility(View.VISIBLE);
+
+                            } catch (JSONException e) {
+                                Log.i(TAG, "onStart: exception " + e.getMessage());
+                                mHttpReqStatus.setText("No Style Concierges information is available at this time. " +
+                                        "We are sorry for the inconvenience!");
+                            }
+
+                            mProgressDialog.dismiss();
+                        }
+                    });
                 }
-                rating /= numReviews;
+                catch (Exception e) {
+                    Log.i(TAG, "onStart: exception " + e.getMessage());
+                    if (mProgressDialog != null && mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+                }
             }
-            mConciergeRating.setRating(rating);
-            mConciergeReviews.setText(numReviews + " consumer reviews");
+        }).start();
+    }
 
-            String encodedPhoto = mJSONObj.get("photo").toString();
-            Bitmap conciergePhoto = decodeBitmap(encodedPhoto);
-            mConciergePhoto.setImageBitmap(conciergePhoto);
+    @Override
+    public void onStop() {
+        super.onStop();
 
-            String languages = mJSONObj.get("languages").toString();
-            if (languages.contains("English")) {
-                mEnglish.setImageResource(R.drawable.english);
-            }
-            if (languages.contains("French")) {
-                mFrench.setImageResource(R.drawable.french);
-            }
-            if (languages.contains("Spanish")) {
-                mSpanish.setImageResource(R.drawable.spanish);
-            }
-            if (languages.contains("German")) {
-                mGerman.setImageResource(R.drawable.german);
-            }
-
-            mConciergeRating.setVisibility(View.VISIBLE);
-            mShareProfileReq.setVisibility(View.VISIBLE);
-            mProfileSharingLayout.setVisibility(View.VISIBLE);
-
-        } catch (JSONException e) {
-            Log.i(TAG, "onStart: exception " + conciergeProfile);
-            mHttpReqStatus.setText("No Style Concierges information is available at this time. " +
-                    "We are sorry for the inconvenience!");
-        }
-
-        mDialog.dismiss();
+        if (mProgressDialog != null && mProgressDialog.isShowing())
+            mProgressDialog.dismiss();
     }
 
     @Override
@@ -186,7 +220,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public String getConciergeProfile() {
+    private String getConciergeProfile() {
         // Extract Concierge ID from Intent
         Intent intent = getIntent();
         String conciergeID = intent.getStringExtra("@string/concierge_id");
@@ -220,7 +254,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
 
     public void onAllowProfileSharing(View view) {
         try {
-            HttpPoster poster = new HttpPoster(getApplicationContext());
+            HttpPoster poster = new HttpPoster(this, "We will be back momentarily...");
             String result = poster.execute(
                     miFashionIP + ":" + miFashionPort + miFashionAPI,
                     "consumer_id", mConsumerID,
@@ -249,7 +283,7 @@ public class PersonalGuidanceActivity extends ActionBarActivity {
 
     public void onDenyProfileSharing(View view) {
         try {
-            HttpPoster poster = new HttpPoster(getApplicationContext());
+            HttpPoster poster = new HttpPoster(this, "We will be back momentarily...");
             String result = poster.execute(
                     miFashionIP + ":" + miFashionPort + miFashionAPI,
                     "consumer_id", mConsumerID,

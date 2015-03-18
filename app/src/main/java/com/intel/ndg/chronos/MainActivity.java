@@ -216,6 +216,7 @@ public class MainActivity extends ActionBarActivity {
                         .setContentText(getString(R.string.content_notification))
                         .setContentIntent(notificationPendingIntent)
                         .setVibrate(vibPattern)
+                        .setAutoCancel(true)
                         .setSound(sound);
 
         // Add voice reply action to notification
@@ -260,10 +261,30 @@ public class MainActivity extends ActionBarActivity {
                         getString(R.string.edit_profile_action_label), editProfilePendingIntent)
                         .build();
 
+        // Create an intent for quick profile sharing
+        Intent shareProfileIntent = new Intent(this, RateConciergeActivity.class);
+        shareProfileIntent.putExtra("@string/quick_share", true);
+        shareProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        shareProfileIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
+        shareProfileIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
+        shareProfileIntent.putExtra("@string/port", IFASHION_PORT);
+        shareProfileIntent.putExtra("@string/profile_api", IFASHION_PROFILE_API);
+
+        PendingIntent shareProfilePendingIntent =
+                PendingIntent.getActivity(this, 0, shareProfileIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Create share profile action
+        NotificationCompat.Action shareProfileAction =
+                new NotificationCompat.Action.Builder(R.drawable.share,
+                        getString(R.string.share_profile_action_label), shareProfilePendingIntent)
+                        .build();
+
+
         // Create wearable extender for wearable specific actions
         NotificationCompat.WearableExtender wearExtender = new NotificationCompat.WearableExtender();
         wearExtender.addAction(replyAction);
         wearExtender.addAction(editProfileAction);
+        wearExtender.addAction(shareProfileAction);
         Bitmap bkGround = BitmapFactory.decodeResource(getResources(), R.drawable.ringbell);
         wearExtender.setBackground(bkGround);
 

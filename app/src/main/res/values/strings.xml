@@ -33,6 +33,8 @@
     </string-array>
 
     <string name="edit_profile_action_label">Profile</string>
+    <string name="share_profile_action_label">Do it!</string>
+
     <string name="ip_address">ip_address</string>
     <string name="port">port</string>
     <string name="concierge_api">concierge_api</string>
@@ -40,6 +42,8 @@
 
     <string name="consumer_id">consumer_id</string>
     <string name="concierge_id">concierge_id</string>
+
+    <string name="quick_share">quick_share</string>
 
     <string name="extra_voice_reply">extra_voice_reply</string>
     <string name="title_activity_personal_guidance">Personal Guidance</string>

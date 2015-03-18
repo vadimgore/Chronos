@@ -1,5 +1,6 @@
 package com.intel.ndg.chronos;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,11 +26,26 @@ import java.util.List;
 
 class HttpPoster extends AsyncTask<String, String, String> {
 
-    private final static String TAG = "HttpPoster";
-    private Context mContext;
+    final static String TAG = "HttpPoster";
+    Context mContext;
+    String mProgressMsg;
+    ProgressDialog mProgressDialog;
 
-    HttpPoster(Context aContext) {
+    HttpPoster(Context aContext, String progDialogMsg) {
         mContext = aContext;
+        mProgressMsg = progDialogMsg;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mContext != null) {
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setTitle("Chronos");
+            mProgressDialog.setMessage(mProgressMsg);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
     }
 
     @Override
@@ -82,6 +98,8 @@ class HttpPoster extends AsyncTask<String, String, String> {
 
     protected void onPostExecute(String result) {
         Log.i(TAG, "onPostExecute: " + result);
+        if (mProgressDialog != null)
+            mProgressDialog.dismiss();
         Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
     }
 }

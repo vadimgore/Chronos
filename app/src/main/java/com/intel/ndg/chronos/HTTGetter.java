@@ -1,7 +1,10 @@
 package com.intel.ndg.chronos;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,6 +20,32 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 class HttpGetter extends AsyncTask<String, String, String> {
+
+    Context mContext;
+    String mProgressMsg;
+    ProgressDialog mProgressDialog;
+
+    public HttpGetter() {
+        mContext = null;
+        mProgressDialog = null;
+    }
+
+    public HttpGetter(Context context, String progressMsg) {
+        mContext = context;
+        mProgressMsg = progressMsg;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mContext != null) {
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setTitle("Chronos");
+            mProgressDialog.setMessage(mProgressMsg);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -66,7 +95,9 @@ class HttpGetter extends AsyncTask<String, String, String> {
 
     protected void onPostExecute(String result) {
         Log.i("onPostExecute: ", result);
-        //Toast.makeText(getApplicationContext(), "onPostExecute: " + result, Toast.LENGTH_LONG).show();
+        if (mProgressDialog != null)
+            mProgressDialog.dismiss();
+        //Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
     }
 }
 

@@ -69,7 +69,7 @@ public class RateConciergeActivity extends ActionBarActivity {
         Log.i(TAG, "Concierge rating is " + rating + " stars");
 
         try {
-            HttpPoster poster = new HttpPoster(getApplicationContext());
+            HttpPoster poster = new HttpPoster(this, "We will be back momentarily...");
 
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");

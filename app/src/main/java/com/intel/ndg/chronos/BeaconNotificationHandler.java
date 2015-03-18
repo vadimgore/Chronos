@@ -41,6 +41,12 @@ public class BeaconNotificationHandler extends Activity {
             userResponseHandler.putExtras(getIntent());
             startActivity(userResponseHandler);
         }
+        else {
+            // If user responds on the device go with Personal Guidance activity
+            Intent userResponseHandler = new Intent(this, PersonalGuidanceActivity.class);
+            userResponseHandler.putExtras(getIntent());
+            startActivity(userResponseHandler);
+        }
     }
 
     private String getUserResponse(Intent intent) {

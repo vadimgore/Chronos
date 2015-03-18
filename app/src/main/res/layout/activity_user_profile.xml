@@ -15,488 +15,601 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:text="FASHION ASPIRATIONS"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <SeekBar android:id="@+id/seekBar1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="4"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="being interesting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="being cool"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
-
-            <SeekBar android:id="@+id/seekBar2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="4"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="being ignored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="being noticed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
-
-
-            <TextView
-                android:text="STYLE PREFERENCES"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <SeekBar android:id="@+id/seekBar3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="4"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="performance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="prestige"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
-
-            <SeekBar android:id="@+id/seekBar4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="4"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="function"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="fashion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-            </RelativeLayout>
-
-            <TextView
-                android:text="BUDGET CONSIDERATIONS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <SeekBar android:id="@+id/seekBar5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="4"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="$"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="$$"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:text="$$$"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
-
-            <TextView
-                android:text="TIMEPIECE USAGE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <SeekBar android:id="@+id/seekBar6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="2"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="daily"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="few days a week"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="ocasionally"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-            </RelativeLayout>
-
-            <TextView
-                android:text="TIMEPIECE STYLE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <Spinner
-                    android:id="@+id/watchface_shape_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/watchface_shape_choices"/>
-
-                <Spinner
-                    android:id="@+id/watchface_type_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/watchface_type_choices"/>
-
+                        android:text="DEMOGRAPHICS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18dp"
+                        android:textColor="@color/gray">
+                </TextView>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray">
+                </View>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <RadioGroup
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton android:id="@+id/male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="male"
+                            android:onClick="onGenderRadioButtonClicked"/>
+                        <RadioButton android:id="@+id/female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="female"
+                            android:onClick="onGenderRadioButtonClicked"/>
+                    </RadioGroup>
+                </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:text="BRACELET/STRAP MATERIAL"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
+                android:orientation="horizontal">
+                <TextView
+                    android:text="Age group:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp">
+                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
+                    <SeekBar android:id="@+id/seekBarAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:max="4">
+                    </SeekBar>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:text="0-18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="19-30"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="31-45"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="46-60"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="60+"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16dp">
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="FASHION ASPIRATIONS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
                     android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <SeekBar android:id="@+id/seekBar1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="4"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <RadioButton android:id="@+id/leather"
+
+                    <TextView
+                        android:text="being interesting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Leather"
-                        android:onClick="onMaterialsRadioButtonClicked"/>
-                    <RadioButton android:id="@+id/steel"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="being cool"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Steel"
-                        android:onClick="onMaterialsRadioButtonClicked"/>
-                </RadioGroup>
-            </LinearLayout>
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                </RelativeLayout>
 
-            <TextView
-                android:text="WRIST SIZE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <SeekBar android:id="@+id/seekBar7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="2"/>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="narrow"
-                    android:layout_width="wrap_content"
+                <SeekBar android:id="@+id/seekBar2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="average"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:text="wide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
+                    android:max="4"/>
 
-            <TextView
-                android:text="FAVORITE ACTIVITY"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
+                    <TextView
+                        android:text="being ignored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <CheckBox android:id="@+id/checkbox_Football"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:text="being noticed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                </RelativeLayout>
+
+
+                <TextView
+                    android:text="STYLE PREFERENCES"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Football"
-                    android:onClick="onFavActivitiesCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Basketball"
-                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <SeekBar android:id="@+id/seekBar3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Basketball"
-                    android:onClick="onFavActivitiesCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Golf"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="4"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Golf"
-                    android:onClick="onFavActivitiesCheckboxClicked"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="performance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="prestige"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                </RelativeLayout>
+
+                <SeekBar android:id="@+id/seekBar4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="4"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="function"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="fashion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:text="BUDGET CONSIDERATIONS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <SeekBar android:id="@+id/seekBar5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="4"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="$"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="$$"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                    <TextView
+                        android:text="$$$"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:text="TIMEPIECE USAGE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <SeekBar android:id="@+id/seekBar6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="2"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="few days a week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="ocasionally"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:text="TIMEPIECE STYLE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <Spinner
+                        android:id="@+id/watchface_shape_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/watchface_shape_choices"/>
+
+                    <Spinner
+                        android:id="@+id/watchface_type_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/watchface_type_choices"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="BRACELET/STRAP MATERIAL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <RadioGroup
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton android:id="@+id/leather"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Leather"
+                            android:onClick="onMaterialsRadioButtonClicked"/>
+                        <RadioButton android:id="@+id/steel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Steel"
+                            android:onClick="onMaterialsRadioButtonClicked"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <TextView
+                    android:text="WRIST SIZE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <SeekBar android:id="@+id/seekBar7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="2"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="narrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:text="wide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:text="FAVORITE ACTIVITY"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <CheckBox android:id="@+id/checkbox_Football"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Football"
+                        android:onClick="onFavActivitiesCheckboxClicked"/>
+                    <CheckBox android:id="@+id/checkbox_Basketball"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Basketball"
+                        android:onClick="onFavActivitiesCheckboxClicked"/>
+                    <CheckBox android:id="@+id/checkbox_Golf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Golf"
+                        android:onClick="onFavActivitiesCheckboxClicked"/>
+                </LinearLayout>
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <CheckBox android:id="@+id/checkbox_Formula_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Formula 1"
+                        android:onClick="onFavActivitiesCheckboxClicked"/>
+                    <CheckBox android:id="@+id/checkbox_Diving"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diving"
+                        android:onClick="onFavActivitiesCheckboxClicked"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="FAVORITE DRINK"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray"/>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <CheckBox android:id="@+id/checkbox_Tea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="tea"
+                        android:onClick="onFavDrinkCheckboxClicked"/>
+                    <CheckBox android:id="@+id/checkbox_Coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="coffee"
+                        android:onClick="onFavDrinkCheckboxClicked"/>
+                    <CheckBox android:id="@+id/checkbox_HotChocolate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hot chocolate"
+                        android:onClick="onFavDrinkCheckboxClicked"/>
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <CheckBox android:id="@+id/checkbox_Formula_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Formula 1"
-                    android:onClick="onFavActivitiesCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Diving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Diving"
-                    android:onClick="onFavActivitiesCheckboxClicked"/>
-            </LinearLayout>
-
-            <TextView
-                android:text="FAVORITE DRINK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="18dp"
-                android:textColor="@color/gray">
-            </TextView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray"/>
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <CheckBox android:id="@+id/checkbox_Tea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="tea"
-                    android:onClick="onFavDrinkCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_Coffee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="coffee"
-                    android:onClick="onFavDrinkCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_HotChocolate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="hot chocolate"
-                    android:onClick="onFavDrinkCheckboxClicked"/>
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

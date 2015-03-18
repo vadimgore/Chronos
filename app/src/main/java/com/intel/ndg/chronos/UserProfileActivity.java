@@ -21,6 +21,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private FavoriteActivity mFavActivity;
     private FavoriteDrink mFavDrink;
 
+    private SeekBar mSeekBarAge;
     private SeekBar mSeekBarGoals1;
     private SeekBar mSeekBarGoals2;
     private SeekBar mSeekBarStyle1;
@@ -32,11 +33,14 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private Spinner mWatchfaceTypeSpinner;
     private RadioButton mStrapLeather;
     private RadioButton mStrapSteel;
+    private RadioButton mGenderMale;
+    private RadioButton mGenderFemale;
 
     private String mConsumerID;
-    private String miFashionIP;
-    private String miFashionPort;
-    private String miFashionAPI;
+    private String mBackendIP;
+    private String mBackendPort;
+    private String mBackendAPI;
+    private String mGender;
 
     private StyleAnalytics mStyleAnalytics;
 
@@ -49,10 +53,11 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         Log.i(TAG, "Start User Profile Activity");
 
         mConsumerID = getIntent().getExtras().getString("@string/consumer_id");
-        miFashionIP = getIntent().getExtras().getString("@string/ip_address");
-        miFashionPort = getIntent().getExtras().getString("@string/port");
-        miFashionAPI = getIntent().getExtras().getString("@string/consumer_api");
+        mBackendIP = getIntent().getExtras().getString("@string/ip_address");
+        mBackendPort = getIntent().getExtras().getString("@string/port");
+        mBackendAPI = getIntent().getExtras().getString("@string/consumer_api");
 
+        mSeekBarAge = (SeekBar) findViewById(R.id.seekBarAge);
         mSeekBarGoals1 = (SeekBar) findViewById(R.id.seekBar1);
         mSeekBarGoals2 = (SeekBar) findViewById(R.id.seekBar2);
         mSeekBarStyle1 = (SeekBar) findViewById(R.id.seekBar3);
@@ -67,6 +72,8 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mWatchfaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
         mWatchfaceTypeSpinner.setOnItemSelectedListener(this);
 
+        mGenderMale = (RadioButton) findViewById(R.id.male);
+        mGenderFemale = (RadioButton) findViewById(R.id.female);
         mStrapLeather = (RadioButton) findViewById(R.id.leather);
         mStrapSteel = (RadioButton) findViewById(R.id.steel);
 
@@ -110,6 +117,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         switch (id) {
             case R.id.save_profile:
                 saveProfile();
+                break;
             case R.id.upload_profile:
                 sendToBackend();
                 break;
@@ -118,6 +126,25 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onGenderRadioButtonClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.male:
+                if (checked)
+                    mGender = "male";
+                break;
+            case R.id.female:
+                if (checked)
+                    mGender = "female";
+                break;
+            default:
+                break;
+        }
     }
 
     public void onMaterialsRadioButtonClicked(View view) {
@@ -215,7 +242,9 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         editor.clear();
 
         editor.putString("@string/consumer_id", mConsumerID);
+        editor.putString("@string/gender", mGender);
 
+        editor.putInt("seekBarAge", mSeekBarAge.getProgress());
         editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
         editor.putInt("seekBarGoals2", mSeekBarGoals2.getProgress());
         editor.putInt("seekBarStyle1", mSeekBarStyle1.getProgress());
@@ -243,10 +272,12 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             saveProfile();
         }
 
-        HttpPoster poster = new HttpPoster(getApplicationContext());
+        HttpPoster poster = new HttpPoster(this, "We will be back momentarily");
         poster.execute(
-                miFashionIP + ":" + miFashionPort + miFashionAPI,
+                mBackendIP + ":" + mBackendPort + mBackendAPI,
                 "consumer_id", mConsumerID,
+                "gender", mGender,
+                "age_group", String.valueOf(mSeekBarAge.getProgress()),
                 "style_score", String.valueOf(mStyleAnalytics.getStyleScore()),
                 "budget_score", String.valueOf(mStyleAnalytics.getBudgetScore()),
                 "fav_activities", String.valueOf(mStyleAnalytics.getFavActivities()),
@@ -262,55 +293,53 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             // No shared preferences exist
             return null;
 
-        int [] seekBarState = getSeekBarState();
         Timepiece timepiece = new Timepiece(getApplicationContext());
         FavoriteActivity favActivity = new FavoriteActivity(getApplicationContext());
         FavoriteDrink favDrink = new FavoriteDrink(getApplicationContext());
 
         return new StyleAnalytics(
-                seekBarState[0],
-                seekBarState[1],
-                seekBarState[2],
-                seekBarState[3],
-                seekBarState[4],
-                seekBarState[5],
-                seekBarState[6],
+                mSeekBarGoals1.getProgress(),
+                mSeekBarGoals2.getProgress(),
+                mSeekBarStyle1.getProgress(),
+                mSeekBarStyle2.getProgress(),
+                mSeekBarBudget.getProgress(),
+                mSeekBarUsage.getProgress(),
+                mSeekBarWrist.getProgress(),
                 timepiece,
                 favActivity,
                 favDrink );
     }
 
-    private int[] getSeekBarState() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int [] seekBarState = {
-                sharedPref.getInt("seekBarGoals1", 0),
-                sharedPref.getInt("seekBarGoals2", 0),
-                sharedPref.getInt("seekBarStyle1", 0),
-                sharedPref.getInt("seekBarStyle2", 0),
-                sharedPref.getInt("seekBarBudget", 0),
-                sharedPref.getInt("seekBarUsage", 0),
-                sharedPref.getInt("seekBarWrist", 0),
-        };
-
-        return seekBarState;
-    }
-
     private void restoreProfile() {
-        // Restore seek bars state
-        int [] seekBarState = getSeekBarState();
-        mSeekBarGoals1.setProgress(seekBarState[0]);
-        mSeekBarGoals2.setProgress(seekBarState[1]);
-        mSeekBarStyle1.setProgress(seekBarState[2]);
-        mSeekBarStyle2.setProgress(seekBarState[3]);
-        mSeekBarBudget.setProgress(seekBarState[4]);
-        mSeekBarUsage.setProgress(seekBarState[5]);
-        mSeekBarWrist.setProgress(seekBarState[6]);
+        // Restore state from shared settings
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mGender = sharedPref.getString("@string/gender", "");
+        mSeekBarAge.setProgress(sharedPref.getInt("seekBarAge", 0));
+        mSeekBarGoals1.setProgress(sharedPref.getInt("seekBarGoals1", 0));
+        mSeekBarGoals2.setProgress(sharedPref.getInt("seekBarGoals2", 0));
+        mSeekBarStyle1.setProgress(sharedPref.getInt("seekBarStyle1", 0));
+        mSeekBarStyle2.setProgress(sharedPref.getInt("seekBarStyle2", 0));
+        mSeekBarBudget.setProgress(sharedPref.getInt("seekBarBudget", 0));
+        mSeekBarUsage.setProgress(sharedPref.getInt("seekBarUsage", 0));
+        mSeekBarWrist.setProgress(sharedPref.getInt("seekBarWrist", 0));
 
         // Restore Timepiece style
         Spinner watchFaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
         watchFaceShapeSpinner.setSelection(mTimepiece.getWatchface().getShape().ordinal());
         Spinner watchFaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
         watchFaceTypeSpinner.setSelection(mTimepiece.getWatchface().getType().ordinal());
+
+        // Restore gender
+        switch (mGender) {
+            case "male":
+                mGenderMale.setChecked(true);
+                break;
+            case "female":
+                mGenderFemale.setChecked(true);
+                break;
+            default:
+                break;
+        }
 
         // Restore strap material
         switch (mTimepiece.getStrapMaterial()) {

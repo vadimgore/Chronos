@@ -41,11 +41,12 @@ public class MainActivity extends ActionBarActivity {
     private UUID mConsumerID;
     private StyleConcierge mStyleConcierge;
 
-    private static final String IFASHION_IP_ADDRESS = "http://52.10.19.66";
-    private static final String IFASHION_PORT = "8080";
-    private static final String IFASHION_CONCIERGE_API = "/concierge";
-    private static final String IFASHION_CONSUMER_API = "/consumer";
-    private static final String IFASHION_PROFILE_API = "/profile";
+    private static final String BACKEND_IP_ADDRESS = "http://52.10.19.66";
+    private static final String BACKEND_PORT = "8080";
+    private static final String CONCIERGE_API = "/concierge";
+    private static final String CONSUMER_API = "/consumer";
+    private static final String PROFILE_API = "/profile";
+    private static final String OFFERS_API = "/offers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +124,8 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case R.id.action_cloud_settings:
                 mCloudSettings = new Intent(this, CloudSettingsActivity.class);
-                mCloudSettings.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
-                mCloudSettings.putExtra("@string/port", IFASHION_PORT);
+                mCloudSettings.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+                mCloudSettings.putExtra("@string/port", BACKEND_PORT);
                 startActivity(mCloudSettings);
                 return true;
             case R.id.action_beacon:
@@ -192,9 +193,9 @@ public class MainActivity extends ActionBarActivity {
         Log.i(TAG, "editProfile");
         mUserProfile = new Intent(this, UserProfileActivity.class);
         mUserProfile.putExtra("@string/consumer_id", mConsumerID.toString());
-        mUserProfile.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
-        mUserProfile.putExtra("@string/port", IFASHION_PORT);
-        mUserProfile.putExtra("@string/consumer_api", IFASHION_CONSUMER_API);
+        mUserProfile.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        mUserProfile.putExtra("@string/port", BACKEND_PORT);
+        mUserProfile.putExtra("@string/consumer_api", CONSUMER_API);
         startActivity(mUserProfile);
     }
 
@@ -220,37 +221,37 @@ public class MainActivity extends ActionBarActivity {
                         .setSound(sound);
 
         // Add voice reply action to notification
-        String replyLabel = getResources().getString(R.string.voice_reply_action_label);
-        String[] replyChoices = getResources().getStringArray(R.array.voice_reply_choices);
-        RemoteInput remoteInput = new RemoteInput.Builder("@string/extra_voice_reply")
+        String replyLabel = getResources().getString(R.string.concierge_action_label);
+        String[] replyChoices = getResources().getStringArray(R.array.concierge_choices);
+        RemoteInput remoteInput = new RemoteInput.Builder("@string/extra_concierge")
                 .setLabel(replyLabel)
                 .setChoices(replyChoices)
                 .build();
 
-        // Create an intent for the voice reply action
-        Intent replyIntent = new Intent(this, BeaconNotificationHandler.class);
-        replyIntent.putExtra("@string/consumer_id", mConsumerID.toString());
-        replyIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
-        replyIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
-        replyIntent.putExtra("@string/port", IFASHION_PORT);
-        replyIntent.putExtra("@string/concierge_api", IFASHION_CONCIERGE_API);
-        replyIntent.putExtra("@string/profile_api", IFASHION_PROFILE_API);
-        PendingIntent replyPendingIntent =
-                PendingIntent.getActivity(this, 0, replyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Create an intent for the concierge action
+        Intent conciergeIntent = new Intent(this, BeaconNotificationHandler.class);
+        conciergeIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        conciergeIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
+        conciergeIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        conciergeIntent.putExtra("@string/port", BACKEND_PORT);
+        conciergeIntent.putExtra("@string/concierge_api", CONCIERGE_API);
+        conciergeIntent.putExtra("@string/profile_api", PROFILE_API);
+        PendingIntent conciergePendingIntent =
+                PendingIntent.getActivity(this, 0, conciergeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Create the reply action and add the remote input
-        NotificationCompat.Action replyAction =
+        // Create the concierge action and add the remote input
+        NotificationCompat.Action conciergeAction =
                 new NotificationCompat.Action.Builder(R.drawable.concierge,
-                        getString(R.string.voice_reply_action_label), replyPendingIntent)
+                        getString(R.string.concierge_action_label), conciergePendingIntent)
                         .addRemoteInput(remoteInput)
                         .build();
 
         // Create an intent for editing profile
         Intent editProfileIntent = new Intent(this, UserProfileActivity.class);
         editProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
-        editProfileIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
-        editProfileIntent.putExtra("@string/port", IFASHION_PORT);
-        editProfileIntent.putExtra("@string/consumer_api", IFASHION_CONSUMER_API);
+        editProfileIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        editProfileIntent.putExtra("@string/port", BACKEND_PORT);
+        editProfileIntent.putExtra("@string/consumer_api", CONSUMER_API);
 
         PendingIntent editProfilePendingIntent =
                 PendingIntent.getActivity(this, 0, editProfileIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -266,25 +267,42 @@ public class MainActivity extends ActionBarActivity {
         shareProfileIntent.putExtra("@string/quick_share", "true");
         shareProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
         shareProfileIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
-        shareProfileIntent.putExtra("@string/ip_address", IFASHION_IP_ADDRESS);
-        shareProfileIntent.putExtra("@string/port", IFASHION_PORT);
-        shareProfileIntent.putExtra("@string/profile_api", IFASHION_PROFILE_API);
+        shareProfileIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        shareProfileIntent.putExtra("@string/port", BACKEND_PORT);
+        shareProfileIntent.putExtra("@string/profile_api", PROFILE_API);
 
         PendingIntent shareProfilePendingIntent =
                 PendingIntent.getActivity(this, 0, shareProfileIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Create share profile action
+        // Create quick profile sharing action
         NotificationCompat.Action shareProfileAction =
                 new NotificationCompat.Action.Builder(R.drawable.share,
                         getString(R.string.share_profile_action_label), shareProfilePendingIntent)
                         .build();
 
+        // Create an intent for special offers
+        Intent specialOffersIntent = new Intent(this, SpecialOffersActivity.class);
+        specialOffersIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        specialOffersIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
+        specialOffersIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        specialOffersIntent.putExtra("@string/port", BACKEND_PORT);
+        specialOffersIntent.putExtra("@string/offers_api", OFFERS_API);
+
+        PendingIntent specialOffersPendingIntent =
+                PendingIntent.getActivity(this, 0, specialOffersIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Create quick profile sharing action
+        NotificationCompat.Action specialOffersAction =
+                new NotificationCompat.Action.Builder(R.drawable.special_offers,
+                        getString(R.string.special_offers_action_label), specialOffersPendingIntent)
+                        .build();
 
         // Create wearable extender for wearable specific actions
         NotificationCompat.WearableExtender wearExtender = new NotificationCompat.WearableExtender();
-        wearExtender.addAction(replyAction);
+        wearExtender.addAction(conciergeAction);
+        wearExtender.addAction(shareProfileAction);        
         wearExtender.addAction(editProfileAction);
-        wearExtender.addAction(shareProfileAction);
+        wearExtender.addAction(specialOffersAction);
         Bitmap bkGround = BitmapFactory.decodeResource(getResources(), R.drawable.ringbell);
         wearExtender.setBackground(bkGround);
 

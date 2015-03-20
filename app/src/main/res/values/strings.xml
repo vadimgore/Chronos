@@ -8,13 +8,13 @@
     <string name="title_activity_user_profile">Edit Profile</string>
     <string name="title_notification">STYLE CONCIERGES</string>
     <string name="content_notification">for your service</string>
-    <string name="voice_reply_action_label">Concierge</string>
-    <string name="voice_reply_choice_1">Explore on my own</string>
-    <string name="voice_reply_choice_2">Personal guidance</string>
+    <string name="concierge_action_label">Concierge</string>
+    <string name="concierge_choice_1">Explore on my own</string>
+    <string name="concierge_choice_2">Personal guidance</string>
 
-    <string-array name="voice_reply_choices">
-        <item>@string/voice_reply_choice_1</item>
-        <item>@string/voice_reply_choice_2</item>
+    <string-array name="concierge_choices">
+        <item>@string/concierge_choice_1</item>
+        <item>@string/concierge_choice_2</item>
     </string-array>
     <string-array name="watchface_shape_choices">
         <item>Round</item>
@@ -31,9 +31,16 @@
         <item>Formula 1</item>
         <item>Watersports</item>
     </string-array>
+    <string-array name="languages">
+        <item>English</item>
+        <item>German</item>
+        <item>French</item>
+        <item>Spanish</item>
+    </string-array>
 
-    <string name="edit_profile_action_label">Profile</string>
-    <string name="share_profile_action_label">Share</string>
+    <string name="edit_profile_action_label">Edit Profile</string>
+    <string name="share_profile_action_label">Share Profile</string>
+    <string name="special_offers_action_label">Special Offers</string>
 
     <string name="ip_address">ip_address</string>
     <string name="port">port</string>
@@ -45,7 +52,7 @@
 
     <string name="quick_share">quick_share</string>
 
-    <string name="extra_voice_reply">extra_voice_reply</string>
+    <string name="extra_concierge">extra_concierge</string>
     <string name="title_activity_personal_guidance">Personal Guidance</string>
     <string name="title_activity_explore_on_my_own">Explore On My Own</string>
 
@@ -66,6 +73,10 @@
 
     <string name="no_concierge_available">No Style Concierges are available at this location</string>
     <string name="title_activity_rate_concierge">Rate Concierge</string>
+    <string name="title_activity_special_offers">Your Special Offers</string>
+
+    <string name="gender">gender</string>
+    <string name="language">language</string>
 
 
 </resources>

@@ -26,9 +26,9 @@ public class BeaconNotificationHandler extends Activity {
             //Toast.makeText(getApplicationContext(), "You requested " + userResponse, Toast.LENGTH_LONG).show();
 
             Intent userResponseHandler;
-            if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_1).toString())) {
+            if (userResponse.equalsIgnoreCase(getResources().getText(R.string.concierge_choice_1).toString())) {
                 userResponseHandler = new Intent(this, ExploreOnMyOwnActivity.class);
-            } else if (userResponse.equalsIgnoreCase(getResources().getText(R.string.voice_reply_choice_2).toString())) {
+            } else if (userResponse.equalsIgnoreCase(getResources().getText(R.string.concierge_choice_2).toString())) {
                 userResponseHandler = new Intent(this, PersonalGuidanceActivity.class);
             } else {
                 Toast.makeText(getApplicationContext(),
@@ -52,7 +52,7 @@ public class BeaconNotificationHandler extends Activity {
     private String getUserResponse(Intent intent) {
         Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
         if (remoteInput != null) {
-            return remoteInput.getCharSequence("@string/extra_voice_reply").toString();
+            return remoteInput.getCharSequence("@string/extra_concierge").toString();
         }
         return null;
     }

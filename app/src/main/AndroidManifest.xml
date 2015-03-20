@@ -78,49 +78,57 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_user_profile"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".BeaconNotificationHandler"
             android:enabled="true"
             android:exported="true"
             android:label="BeaconNotificationHandler"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".PersonalGuidanceActivity"
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_personal_guidance"
-            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".ExploreOnMyOwnActivity"
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_explore_on_my_own"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CloudSettingsActivity"
             android:enabled="true"
             android:exported="true"
             android:label="@string/title_activity_cloud_settings"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RateConciergeActivity"
-            android:label="@string/title_activity_rate_concierge"
             android:enabled="true"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_rate_concierge"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SpecialOffersActivity"
+            android:label="@string/title_activity_special_offers" >
+            android:enabled="true"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -15,45 +15,58 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                    android:text="DEMOGRAPHICS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/gray">
+            </TextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray">
+            </View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="male"
+                        android:onClick="onGenderRadioButtonClicked"/>
+                    <RadioButton android:id="@+id/female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="female"
+                        android:onClick="onGenderRadioButtonClicked"/>
+                </RadioGroup>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="true"
+                android:orientation="horizontal">
                 <TextView
-                        android:text="DEMOGRAPHICS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="18dp"
-                        android:textColor="@color/gray">
+                    android:text="Preferred Language:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp">
                 </TextView>
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray">
-                </View>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-                    <RadioGroup
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RadioButton android:id="@+id/male"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="male"
-                            android:onClick="onGenderRadioButtonClicked"/>
-                        <RadioButton android:id="@+id/female"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="female"
-                            android:onClick="onGenderRadioButtonClicked"/>
-                    </RadioGroup>
-                </LinearLayout>
+                <Spinner
+                    android:id="@+id/preferred_language_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/languages"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"

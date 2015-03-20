@@ -29,6 +29,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private SeekBar mSeekBarBudget;
     private SeekBar mSeekBarUsage;
     private SeekBar mSeekBarWrist;
+    private Spinner mLanguageSpinner;
     private Spinner mWatchfaceShapeSpinner;
     private Spinner mWatchfaceTypeSpinner;
     private RadioButton mStrapLeather;
@@ -41,6 +42,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private String mBackendPort;
     private String mBackendAPI;
     private String mGender;
+    private Integer mLanguage;
 
     private StyleAnalytics mStyleAnalytics;
 
@@ -65,6 +67,9 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mSeekBarBudget = (SeekBar) findViewById(R.id.seekBar5);
         mSeekBarUsage = (SeekBar) findViewById(R.id.seekBar6);
         mSeekBarWrist = (SeekBar) findViewById(R.id.seekBar7);
+
+        mLanguageSpinner = (Spinner) findViewById(R.id.preferred_language_spinner);
+        mLanguageSpinner.setOnItemSelectedListener(this);
 
         mWatchfaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
         mWatchfaceShapeSpinner.setOnItemSelectedListener(this);
@@ -243,6 +248,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
 
         editor.putString("@string/consumer_id", mConsumerID);
         editor.putString("@string/gender", mGender);
+        editor.putInt("@string/language", mLanguage);
 
         editor.putInt("seekBarAge", mSeekBarAge.getProgress());
         editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
@@ -277,6 +283,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
                 mBackendIP + ":" + mBackendPort + mBackendAPI,
                 "consumer_id", mConsumerID,
                 "gender", mGender,
+                "language", mLanguageSpinner.getItemAtPosition(mLanguage).toString(),
                 "age_group", String.valueOf(mSeekBarAge.getProgress()),
                 "style_score", String.valueOf(mStyleAnalytics.getStyleScore()),
                 "budget_score", String.valueOf(mStyleAnalytics.getBudgetScore()),
@@ -314,6 +321,9 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         // Restore state from shared settings
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mGender = sharedPref.getString("@string/gender", "");
+        mLanguage = sharedPref.getInt("@string/language", 0);
+        mLanguageSpinner.setSelection(mLanguage);
+
         mSeekBarAge.setProgress(sharedPref.getInt("seekBarAge", 0));
         mSeekBarGoals1.setProgress(sharedPref.getInt("seekBarGoals1", 0));
         mSeekBarGoals2.setProgress(sharedPref.getInt("seekBarGoals2", 0));
@@ -378,7 +388,10 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.i("Spinner:onItemSelected", parent.getItemAtPosition(position).toString());
-        if (parent.getId() == mWatchfaceShapeSpinner.getId()) {
+        if (parent.getId() == mLanguageSpinner.getId()) {
+            mLanguage = mLanguageSpinner.getSelectedItemPosition();
+        }
+        else if (parent.getId() == mWatchfaceShapeSpinner.getId()) {
             mTimepiece.getWatchface().setShape(Watchface.Shape.values()[position]);
         } else if (parent.getId() == mWatchfaceTypeSpinner.getId()) {
             mTimepiece.getWatchface().setType(Watchface.Type.values()[position]);

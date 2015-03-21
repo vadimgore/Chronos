@@ -124,7 +124,7 @@
         </activity>
         <activity
             android:name=".SpecialOffersActivity"
-            android:label="@string/title_activity_special_offers" >
+            android:label="@string/title_activity_special_offers"
             android:enabled="true"
             android:exported="true"
             android:parentActivityName=".MainActivity"

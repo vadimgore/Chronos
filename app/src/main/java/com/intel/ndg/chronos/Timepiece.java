@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class Timepiece {
 
-
-class Watchface {
     enum Shape {
         ROUND,
         SQUARE
@@ -17,126 +14,60 @@ class Watchface {
         CHRONOGRAPH,
         ANALOGWATCH
     }
+    enum Strap {
+        STEEL,
+        LEATHER
+    }
+
+    enum Collection {
+        NONE,
+        CARRERA,
+        AQUARACER,
+        MONACO,
+        FORMULA1
+    }
+
+    private Context mContext;
     private Shape mShape;
     private Type mType;
-    Context mContext;
-    SharedPreferences mSharedPref;
+    private Strap mStrap;
+    private Collection mCollection;
+    private SharedPreferences mSharedPref;
 
-    public Watchface(Context aContext) {
-        mContext = aContext;
-        mShape = Shape.ROUND;
-        mType = Type.CHRONOGRAPH;
-        mSharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-    }
-
-    public Watchface(Shape aShape, Type aType) {
-        mShape = aShape;
-        mType = aType;
-    }
-
-    public Shape getShape() { return mShape; }
-    public Type getType() { return mType; }
-
-    public void setShape(Shape aShape) {
-        mShape = aShape;
-    }
-
-    public void setType(Type aType) {
-        mType = aType;
-    }
-
-    public void saveState() {
-        SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putInt("watchface_shape", mShape.ordinal());
-        editor.putInt("watchface_type", mType.ordinal());
-
-        editor.commit();
-    }
-
-    public void restoreState() {
-        int i = mSharedPref.getInt("watchface_shape", -1);
-        if (i > -1)
-            mShape = Shape.values()[i];
-
-        i = mSharedPref.getInt("watchface_type", -1);
-        if (i > -1)
-            mType = Type.values()[i];
-    }
-}
-
-/**
- * Created by vgore on 2/23/2015.
- */
-public class Timepiece {
-
-    enum StrapMaterial {
-        Steel,
-        Leather
-    }
-
-    ArrayList<String> mProperties;
-    StrapMaterial mStrapMaterial;
-    Watchface mFace;
-    Context mContext;
-    SharedPreferences mSharedPref;
-
-    public Timepiece(Context aContext) {
-        mContext = aContext;
-        mProperties = new ArrayList<>();
-        mStrapMaterial = StrapMaterial.Leather;
-        mFace = new Watchface(mContext);
+    public Timepiece(Context context) {
+        mContext = context;
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         restoreState();
     }
 
-    public ArrayList<String> getProperties() {
-        return mProperties;
+    public Collection getCollection() { return mCollection; }
+    public Shape getShape() { return mShape; }
+    public Type getType() { return mType; }
+    public Strap getStrap() {
+        return mStrap;
     }
 
-    public void addProperty(String s) {
-        if (!mProperties.contains(s))
-            mProperties.add(s);
-    }
-
-    public void removeProperty(String s) {
-        if (mProperties.contains(s))
-            mProperties.remove(s);
-    }
-
-    public void setWatchface(Watchface aFace) {
-        mFace = aFace;
-    }
-
-    public void setStrapMaterial(StrapMaterial aMaterial) {
-        mStrapMaterial = aMaterial;
-    }
-
-    public Watchface getWatchface() {
-        return mFace;
-    }
-
-    public StrapMaterial getStrapMaterial() {
-        return mStrapMaterial;
-    }
+    public void setCollection(Collection collection) {mCollection = collection;}
+    public void setShape(Shape shape) {mShape = shape;}
+    public void setType(Type type) {mType = type;}
+    public void setStrap(Strap strap) {mStrap = strap;}
 
     public void saveState() {
 
-        mFace.saveState();
         SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putInt("StrapMaterial", mStrapMaterial.ordinal());
-        StringBuilder strBuilder = new StringBuilder();
-        for (String s : mProperties) {
-            strBuilder.append(s);
-            strBuilder.append(",");
-        }
-        editor.putString("Properties", strBuilder.toString());
+        editor.putInt("timepeice_collection", mCollection.ordinal());
+        editor.putInt("timepeice_type", mType.ordinal());
+        editor.putInt("timepeice_shape", mShape.ordinal());
+        editor.putInt("timepeice_strap", mStrap.ordinal());
+
         editor.commit();
     }
 
     public void restoreState() {
-        mFace.restoreState();
-        mStrapMaterial = StrapMaterial.values()[mSharedPref.getInt("StrapMaterial", 0)];
-        String props = mSharedPref.getString("Properties", "");
-        mProperties.addAll(Arrays.asList(props.split("\\s*,\\s*")));
+        mCollection = Collection.values()[mSharedPref.getInt("timepeice_collection", 0)];
+        mType = Type.values()[mSharedPref.getInt("timepeice_type", 0)];
+        mShape = Shape.values()[mSharedPref.getInt("timepeice_shape", 0)];
+        mStrap = Strap.values()[mSharedPref.getInt("timepeice_strap", 0)];
     }
+
 }

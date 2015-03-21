@@ -1,26 +1,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="com.intel.ndg.chronos.UserProfileActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/beige">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
-                    android:text="DEMOGRAPHICS"
+                    android:text="ABOUT ME"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:textSize="18dp"
                     android:textColor="@color/gray">
             </TextView>
@@ -31,11 +31,21 @@
             </View>
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <RadioGroup
-                    android:layout_width="fill_parent"
+                android:baselineAligned="true"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="I am:"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="18dp">
+                </TextView>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
                     <RadioButton android:id="@+id/male"
                         android:layout_width="wrap_content"
@@ -52,12 +62,11 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:baselineAligned="true"
                 android:orientation="horizontal">
                 <TextView
-                    android:text="Preferred Language:"
+                    android:text="I speak:"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp">
@@ -66,97 +75,149 @@
                     android:id="@+id/preferred_language_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/languages"/>
+                    android:entries="@array/language_choices"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:text="Age group:"
-                    android:layout_width="match_parent"
+                    android:text="My age:"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:textSize="18dp">
                 </TextView>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <SeekBar android:id="@+id/seekBarAge"
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:max="2">
+                    </SeekBar>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:text="too young"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="just perfect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="16dp">
+                        </TextView>
+                        <TextView
+                            android:text="too old"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:textSize="16dp">
+                        </TextView>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="Budget limits:"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp">
+                </TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <SeekBar android:id="@+id/seekBarBudget"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:max="4">
                     </SeekBar>
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
                         <TextView
-                            android:text="0-18"
-                            android:layout_width="match_parent"
+                            android:text="piggy bank"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_alignParentLeft="true"
                             android:textSize="16dp">
                         </TextView>
                         <TextView
-                            android:text="19-30"
-                            android:layout_width="match_parent"
+                            android:text="what limits?"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_alignParentRight="true"
                             android:textSize="16dp">
                         </TextView>
-                        <TextView
-                            android:text="31-45"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:textSize="16dp">
-                        </TextView>
-                        <TextView
-                            android:text="46-60"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:textSize="16dp">
-                        </TextView>
-                        <TextView
-                            android:text="60+"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:textSize="16dp">
-                        </TextView>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:text="I like:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp">
+                </TextView>
+                <CheckBox android:id="@+id/checkbox_black_tea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="black tea"
+                    android:onClick="onFavDrinkCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_green_tea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="green tea"
+                    android:onClick="onFavDrinkCheckboxClicked"/>
+                <CheckBox android:id="@+id/checkbox_espresso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="espresso"
+                    android:onClick="onFavDrinkCheckboxClicked"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:text="FASHION ASPIRATIONS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:textSize="18dp"
                     android:textColor="@color/gray">
                 </TextView>
-
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
                     android:background="@color/gray"/>
 
-                <SeekBar android:id="@+id/seekBar1"
+                <SeekBar android:id="@+id/seekBarAspirations1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -164,7 +225,7 @@
                     android:layout_marginRight="10dp"
                     android:max="4"/>
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -188,7 +249,7 @@
                         android:textSize="16dp"/>
                 </RelativeLayout>
 
-                <SeekBar android:id="@+id/seekBar2"
+                <SeekBar android:id="@+id/seekBarAspirations2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -196,7 +257,7 @@
                     android:layout_marginRight="10dp"
                     android:max="4"/>
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -219,13 +280,33 @@
                         android:textColor="@color/black"
                         android:textSize="16dp"/>
                 </RelativeLayout>
-
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:baselineAligned="true"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="STYLE INSPIRATION"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/gray">
+                    </TextView>
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/gray"/>
+                    <Spinner
+                        android:id="@+id/celebrity_spinner"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
                 <TextView
                     android:text="STYLE PREFERENCES"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
                     android:textSize="18dp"
                     android:textColor="@color/gray">
@@ -236,7 +317,7 @@
                     android:layout_height="2dp"
                     android:background="@color/gray"/>
 
-                <SeekBar android:id="@+id/seekBar3"
+                <SeekBar android:id="@+id/seekBarStyle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -244,7 +325,7 @@
                     android:layout_marginRight="10dp"
                     android:max="4"/>
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -268,7 +349,7 @@
                         android:textSize="16dp"/>
                 </RelativeLayout>
 
-                <SeekBar android:id="@+id/seekBar4"
+                <SeekBar android:id="@+id/seekBarStyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -276,7 +357,7 @@
                     android:layout_marginRight="10dp"
                     android:max="4"/>
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -298,160 +379,12 @@
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
                         android:textSize="16dp"/>
-
                 </RelativeLayout>
 
                 <TextView
-                    android:text="BUDGET CONSIDERATIONS"
+                    android:text="TIMEPIECE PREFERENCES"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-
-                <SeekBar android:id="@+id/seekBar5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:max="4"/>
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:text="$"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:text="$$"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-                    <TextView
-                        android:text="$$$"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-                </RelativeLayout>
-
-                <TextView
-                    android:text="TIMEPIECE USAGE"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-
-                <SeekBar android:id="@+id/seekBar6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:max="2"/>
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:text="daily"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:text="few days a week"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:text="ocasionally"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-
-                </RelativeLayout>
-
-                <TextView
-                    android:text="TIMEPIECE STYLE"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <Spinner
-                        android:id="@+id/watchface_shape_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/watchface_shape_choices"/>
-
-                    <Spinner
-                        android:id="@+id/watchface_type_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/watchface_type_choices"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:text="BRACELET/STRAP MATERIAL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
                     android:textSize="18dp"
                     android:textColor="@color/gray">
@@ -464,10 +397,54 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Shape:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp">
+                    </TextView>
+
+                    <Spinner
+                        android:id="@+id/watchface_shape_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/watchface_shape_choices"/>
+
+                    <TextView
+                        android:text="Type:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp">
+                    </TextView>
+
+                    <Spinner
+                        android:id="@+id/watchface_type_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/watchface_type_choices"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:baselineAligned="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Bracelet/Strap:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/gray">
+                    </TextView>
                     <RadioGroup
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <RadioButton android:id="@+id/leather"
@@ -483,144 +460,63 @@
                     </RadioGroup>
                 </LinearLayout>
 
-                <TextView
-                    android:text="WRIST SIZE"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
-
-                <View
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-
-                <SeekBar android:id="@+id/seekBar7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="2"/>
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="narrow"
+                        android:text="Wrist size:"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
+                        android:textSize="18dp"
+                        android:textColor="@color/gray">
+                    </TextView>
 
-                    <TextView
-                        android:text="average"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:text="wide"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"/>
-                </RelativeLayout>
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:text="FAVORITE ACTIVITY"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
+                        <SeekBar android:id="@+id/seekBarWristSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:max="2"/>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-                    <CheckBox android:id="@+id/checkbox_Football"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Football"
-                        android:onClick="onFavActivitiesCheckboxClicked"/>
-                    <CheckBox android:id="@+id/checkbox_Basketball"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Basketball"
-                        android:onClick="onFavActivitiesCheckboxClicked"/>
-                    <CheckBox android:id="@+id/checkbox_Golf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Golf"
-                        android:onClick="onFavActivitiesCheckboxClicked"/>
-                </LinearLayout>
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-                    <CheckBox android:id="@+id/checkbox_Formula_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Formula 1"
-                        android:onClick="onFavActivitiesCheckboxClicked"/>
-                    <CheckBox android:id="@+id/checkbox_Diving"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Diving"
-                        android:onClick="onFavActivitiesCheckboxClicked"/>
-                </LinearLayout>
+                            <TextView
+                                android:text="narrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:textColor="@color/black"
+                                android:textSize="16dp"/>
 
-                <TextView
-                    android:text="FAVORITE DRINK"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray">
-                </TextView>
+                            <TextView
+                                android:text="average"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:textColor="@color/black"
+                                android:textSize="16dp"/>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-                    <CheckBox android:id="@+id/checkbox_Tea"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="tea"
-                        android:onClick="onFavDrinkCheckboxClicked"/>
-                    <CheckBox android:id="@+id/checkbox_Coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="coffee"
-                        android:onClick="onFavDrinkCheckboxClicked"/>
-                    <CheckBox android:id="@+id/checkbox_HotChocolate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="hot chocolate"
-                        android:onClick="onFavDrinkCheckboxClicked"/>
+                            <TextView
+                                android:text="wide"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/black"
+                                android:textSize="16dp"/>
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -24,18 +24,27 @@
         <item>Chronograph</item>
         <item>Analog watch</item>
     </string-array>
-    <string-array name="fav_sports">
-        <item>Football</item>
-        <item>Basketball</item>
-        <item>Golf</item>
-        <item>Formula 1</item>
-        <item>Watersports</item>
-    </string-array>
-    <string-array name="languages">
+
+    <string-array name="language_choices">
         <item>English</item>
         <item>German</item>
         <item>French</item>
         <item>Spanish</item>
+    </string-array>
+
+    <string-array name="male_celebrity_choices">
+        <item>myself</item>
+        <item>Christiano Ronaldo</item>
+        <item>Tiger Woods</item>
+        <item>Brad Pit</item>
+        <item>Sebastien Ogier</item>
+    </string-array>
+
+    <string-array name="female_celebrity_choices">
+        <item>myself</item>
+        <item>Mariya Sharapova</item>
+        <item>Cameron Diaz</item>
+        <item>Uma Thurman</item>
     </string-array>
 
     <string name="edit_profile_action_label">Edit Profile</string>

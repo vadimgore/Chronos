@@ -6,14 +6,12 @@ import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
-/**
- * Created by Vadim on 2/23/2015.
- */
 public class FavoriteDrink {
     enum Drink {
-        Tea,
-        Coffee,
-        HotChocolate
+        black_tea,
+        green_tea,
+        latte,
+        espresso
     }
 
     ArrayList<Drink> mFavDrinks;

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
@@ -18,18 +19,17 @@ import android.widget.Toast;
 public class UserProfileActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "User Profile Activity:";
     private Timepiece mTimepiece;
-    private FavoriteActivity mFavActivity;
     private FavoriteDrink mFavDrink;
 
     private SeekBar mSeekBarAge;
-    private SeekBar mSeekBarGoals1;
-    private SeekBar mSeekBarGoals2;
+    private SeekBar mSeekBarAspirations1;
+    private SeekBar mSeekBarAspirations2;
     private SeekBar mSeekBarStyle1;
     private SeekBar mSeekBarStyle2;
     private SeekBar mSeekBarBudget;
-    private SeekBar mSeekBarUsage;
     private SeekBar mSeekBarWrist;
     private Spinner mLanguageSpinner;
+    private Spinner mCelebritySpinner;
     private Spinner mWatchfaceShapeSpinner;
     private Spinner mWatchfaceTypeSpinner;
     private RadioButton mStrapLeather;
@@ -60,16 +60,18 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mBackendAPI = getIntent().getExtras().getString("@string/consumer_api");
 
         mSeekBarAge = (SeekBar) findViewById(R.id.seekBarAge);
-        mSeekBarGoals1 = (SeekBar) findViewById(R.id.seekBar1);
-        mSeekBarGoals2 = (SeekBar) findViewById(R.id.seekBar2);
-        mSeekBarStyle1 = (SeekBar) findViewById(R.id.seekBar3);
-        mSeekBarStyle2 = (SeekBar) findViewById(R.id.seekBar4);
-        mSeekBarBudget = (SeekBar) findViewById(R.id.seekBar5);
-        mSeekBarUsage = (SeekBar) findViewById(R.id.seekBar6);
-        mSeekBarWrist = (SeekBar) findViewById(R.id.seekBar7);
+        mSeekBarAspirations1 = (SeekBar) findViewById(R.id.seekBarAspirations1);
+        mSeekBarAspirations2 = (SeekBar) findViewById(R.id.seekBarAspirations2);
+        mSeekBarStyle1 = (SeekBar) findViewById(R.id.seekBarStyle1);
+        mSeekBarStyle2 = (SeekBar) findViewById(R.id.seekBarStyle2);
+        mSeekBarBudget = (SeekBar) findViewById(R.id.seekBarBudget);
+        mSeekBarWrist = (SeekBar) findViewById(R.id.seekBarWristSize);
 
         mLanguageSpinner = (Spinner) findViewById(R.id.preferred_language_spinner);
         mLanguageSpinner.setOnItemSelectedListener(this);
+
+        mCelebritySpinner  = (Spinner) findViewById(R.id.celebrity_spinner);
+        mCelebritySpinner.setOnItemSelectedListener(this);
 
         mWatchfaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
         mWatchfaceShapeSpinner.setOnItemSelectedListener(this);
@@ -83,7 +85,6 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mStrapSteel = (RadioButton) findViewById(R.id.steel);
 
         mTimepiece = new Timepiece(getApplicationContext());
-        mFavActivity = new FavoriteActivity(getApplicationContext());
         mFavDrink = new FavoriteDrink(getApplicationContext());
 
         restoreProfile();
@@ -94,8 +95,6 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             Log.i(TAG, "User Style Score = " + mStyleAnalytics.getStyleScore());
             Log.i(TAG, "User Budget Score = " + mStyleAnalytics.getBudgetScore());
             Log.i(TAG, "Product Recommendation = " + mStyleAnalytics.getProductRecommendation());
-            Log.i(TAG, "Favorite Activities = " + mStyleAnalytics.getFavActivities());
-            Log.i(TAG, "Favorite Drinks = " + mStyleAnalytics.getFavDrinks());
         }
     }
 
@@ -142,10 +141,14 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
             case R.id.male:
                 if (checked)
                     mGender = "male";
+                    mCelebritySpinner.setAdapter(ArrayAdapter.createFromResource(this,
+                            R.array.male_celebrity_choices, android.R.layout.simple_spinner_item));
                 break;
             case R.id.female:
                 if (checked)
                     mGender = "female";
+                    mCelebritySpinner.setAdapter(ArrayAdapter.createFromResource(this,
+                            R.array.female_celebrity_choices, android.R.layout.simple_spinner_item));
                 break;
             default:
                 break;
@@ -160,52 +163,11 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         switch(view.getId()) {
             case R.id.leather:
                 if (checked)
-                    mTimepiece.setStrapMaterial(Timepiece.StrapMaterial.Leather);
+                    mTimepiece.setStrap(Timepiece.Strap.LEATHER);
                 break;
             case R.id.steel:
                 if (checked)
-                    mTimepiece.setStrapMaterial(Timepiece.StrapMaterial.Steel);
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void onFavActivitiesCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_Football:
-                if (checked)
-                    mFavActivity.addActivity(FavoriteActivity.Activity.Football);
-                else
-                    mFavActivity.removeActivity(FavoriteActivity.Activity.Football);
-                break;
-            case R.id.checkbox_Basketball:
-                if (checked)
-                    mFavActivity.addActivity(FavoriteActivity.Activity.Basketball);
-                else
-                    mFavActivity.removeActivity(FavoriteActivity.Activity.Basketball);
-                break;
-            case R.id.checkbox_Golf:
-                if (checked)
-                    mFavActivity.addActivity(FavoriteActivity.Activity.Golf);
-                else
-                    mFavActivity.removeActivity(FavoriteActivity.Activity.Golf);
-                break;
-            case R.id.checkbox_Formula_1:
-                if (checked)
-                    mFavActivity.addActivity(FavoriteActivity.Activity.Formula_1);
-                else
-                    mFavActivity.removeActivity(FavoriteActivity.Activity.Formula_1);
-                break;
-            case R.id.checkbox_Diving:
-                if (checked)
-                    mFavActivity.addActivity(FavoriteActivity.Activity.Diving);
-                else
-                    mFavActivity.removeActivity(FavoriteActivity.Activity.Diving);
+                    mTimepiece.setStrap(Timepiece.Strap.STEEL);
                 break;
             default:
                 break;
@@ -218,23 +180,23 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.checkbox_Tea:
+            case R.id.checkbox_black_tea:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.Tea);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.black_tea);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.Tea);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.black_tea);
                 break;
-            case R.id.checkbox_Coffee:
+            case R.id.checkbox_green_tea:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.Coffee);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.green_tea);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.Coffee);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.green_tea);
                 break;
-            case R.id.checkbox_HotChocolate:
+            case R.id.checkbox_espresso:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.HotChocolate);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.espresso);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.HotChocolate);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.espresso);
                 break;
             default:
                 break;
@@ -251,18 +213,18 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         editor.putInt("@string/language", mLanguage);
 
         editor.putInt("seekBarAge", mSeekBarAge.getProgress());
-        editor.putInt("seekBarGoals1", mSeekBarGoals1.getProgress());
-        editor.putInt("seekBarGoals2", mSeekBarGoals2.getProgress());
+        editor.putInt("seekBarBudget", mSeekBarBudget.getProgress());       
+        editor.putInt("seekBarAspirations1", mSeekBarAspirations1.getProgress());
+        editor.putInt("seekBarAspirations2", mSeekBarAspirations2.getProgress());
         editor.putInt("seekBarStyle1", mSeekBarStyle1.getProgress());
         editor.putInt("seekBarStyle2", mSeekBarStyle2.getProgress());
-        editor.putInt("seekBarBudget", mSeekBarBudget.getProgress());
-        editor.putInt("seekBarUsage", mSeekBarUsage.getProgress());
+        
         editor.putInt("seekBarWrist", mSeekBarWrist.getProgress());
-
+        editor.putInt("celebritySpinner", mCelebritySpinner.getSelectedItemPosition());
+                
         editor.commit();
 
         mTimepiece.saveState();
-        mFavActivity.saveState();
         mFavDrink.saveState();
 
         // Rebuild style analytics
@@ -287,8 +249,7 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
                 "age_group", String.valueOf(mSeekBarAge.getProgress()),
                 "style_score", String.valueOf(mStyleAnalytics.getStyleScore()),
                 "budget_score", String.valueOf(mStyleAnalytics.getBudgetScore()),
-                "fav_activities", String.valueOf(mStyleAnalytics.getFavActivities()),
-                "fav_drinks", String.valueOf(mStyleAnalytics.getFavDrinks()),
+                "fav_drinks", mFavDrink.getDrinks().toString(),
                 "prod_rec", String.valueOf(mStyleAnalytics.getProductRecommendation())
         );
     }
@@ -296,25 +257,18 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
     private StyleAnalytics createStyleAnalytics() {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (!sharedPref.contains("seekBarGoals1"))
+        if (!sharedPref.contains("seekBarAspirations1"))
             // No shared preferences exist
             return null;
 
-        Timepiece timepiece = new Timepiece(getApplicationContext());
-        FavoriteActivity favActivity = new FavoriteActivity(getApplicationContext());
-        FavoriteDrink favDrink = new FavoriteDrink(getApplicationContext());
-
         return new StyleAnalytics(
-                mSeekBarGoals1.getProgress(),
-                mSeekBarGoals2.getProgress(),
+                mSeekBarAspirations1.getProgress(),
+                mSeekBarAspirations2.getProgress(),
                 mSeekBarStyle1.getProgress(),
                 mSeekBarStyle2.getProgress(),
                 mSeekBarBudget.getProgress(),
-                mSeekBarUsage.getProgress(),
                 mSeekBarWrist.getProgress(),
-                timepiece,
-                favActivity,
-                favDrink );
+                mTimepiece);
     }
 
     private void restoreProfile() {
@@ -325,52 +279,49 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         mLanguageSpinner.setSelection(mLanguage);
 
         mSeekBarAge.setProgress(sharedPref.getInt("seekBarAge", 0));
-        mSeekBarGoals1.setProgress(sharedPref.getInt("seekBarGoals1", 0));
-        mSeekBarGoals2.setProgress(sharedPref.getInt("seekBarGoals2", 0));
+        mSeekBarAspirations1.setProgress(sharedPref.getInt("seekBarAspirations1", 0));
+        mSeekBarAspirations2.setProgress(sharedPref.getInt("seekBarAspirations2", 0));
         mSeekBarStyle1.setProgress(sharedPref.getInt("seekBarStyle1", 0));
         mSeekBarStyle2.setProgress(sharedPref.getInt("seekBarStyle2", 0));
         mSeekBarBudget.setProgress(sharedPref.getInt("seekBarBudget", 0));
-        mSeekBarUsage.setProgress(sharedPref.getInt("seekBarUsage", 0));
         mSeekBarWrist.setProgress(sharedPref.getInt("seekBarWrist", 0));
 
         // Restore Timepiece style
         Spinner watchFaceShapeSpinner = (Spinner) findViewById(R.id.watchface_shape_spinner);
-        watchFaceShapeSpinner.setSelection(mTimepiece.getWatchface().getShape().ordinal());
+        watchFaceShapeSpinner.setSelection(mTimepiece.getShape().ordinal());
         Spinner watchFaceTypeSpinner = (Spinner) findViewById(R.id.watchface_type_spinner);
-        watchFaceTypeSpinner.setSelection(mTimepiece.getWatchface().getType().ordinal());
+        watchFaceTypeSpinner.setSelection(mTimepiece.getType().ordinal());
 
         // Restore gender
         switch (mGender) {
             case "male":
                 mGenderMale.setChecked(true);
+                if (mCelebritySpinner.getCount() == 0)
+                    mCelebritySpinner.setAdapter(ArrayAdapter.createFromResource(this,
+                            R.array.male_celebrity_choices, android.R.layout.simple_spinner_item));
                 break;
             case "female":
                 mGenderFemale.setChecked(true);
+                if (mCelebritySpinner.getCount() == 0)
+                    mCelebritySpinner.setAdapter(ArrayAdapter.createFromResource(this,
+                            R.array.female_celebrity_choices, android.R.layout.simple_spinner_item));
                 break;
             default:
                 break;
         }
 
+        mCelebritySpinner.setSelection(sharedPref.getInt("celebritySpinner", 0));
+
         // Restore strap material
-        switch (mTimepiece.getStrapMaterial()) {
-            case Leather:
+        switch (mTimepiece.getStrap()) {
+            case LEATHER:
                 mStrapLeather.setChecked(true);
                 break;
-            case Steel:
+            case STEEL:
                 mStrapSteel.setChecked(true);
                 break;
             default:
                 break;
-        }
-
-        // Restore Favorite Activity state
-        if (mFavActivity.getActivities() != null) {
-            for (FavoriteActivity.Activity s : mFavActivity.getActivities()) {
-                int id = getResources().getIdentifier("checkbox_" + s.name(), "id", getPackageName());
-                CheckBox checkBox = (CheckBox) findViewById(id);
-                if (checkBox != null)
-                    checkBox.setChecked(true);
-            }
         }
 
         // Restore Favorite Drink state
@@ -390,11 +341,12 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
         Log.i("Spinner:onItemSelected", parent.getItemAtPosition(position).toString());
         if (parent.getId() == mLanguageSpinner.getId()) {
             mLanguage = mLanguageSpinner.getSelectedItemPosition();
-        }
-        else if (parent.getId() == mWatchfaceShapeSpinner.getId()) {
-            mTimepiece.getWatchface().setShape(Watchface.Shape.values()[position]);
+        } else if (parent.getId() == mCelebritySpinner.getId()) {
+            mTimepiece.setCollection(Timepiece.Collection.values()[position]);
+        } else if (parent.getId() == mWatchfaceShapeSpinner.getId()) {
+            mTimepiece.setShape(Timepiece.Shape.values()[position]);
         } else if (parent.getId() == mWatchfaceTypeSpinner.getId()) {
-            mTimepiece.getWatchface().setType(Watchface.Type.values()[position]);
+            mTimepiece.setType(Timepiece.Type.values()[position]);
         }
     }
 

@@ -1,6 +1,13 @@
 package com.intel.ndg.chronos;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class StyleAnalytics {
+
+    private static String TAG = "StyleAnalytics";
 
     enum Range {
         LOW,
@@ -16,46 +23,33 @@ public class StyleAnalytics {
         WIDE
     }
 
-    enum Usage {
-        DAILY,
-        MODERATE,
-        OCCASIONAL
-    }
-
     private Range mCoolness;
     private Range mVisibility;
     private Range mImpression;
     private Range mConvenience;
     private Range mBudget;
-    private Usage mUsage;
     private WristSize mWristSize;
     private Timepiece mTimepiece;
-    private FavoriteActivity mFavActivity;
-    private FavoriteDrink mFavDrink;
 
     private int mStyleScore = 0;
 
     StyleAnalytics(int coolness, int visibility, int impression, int convenience,
-                   int budget, int usage, int wristSize, Timepiece timepiece,
-                   FavoriteActivity favActivity, FavoriteDrink favDrink) {
+                   int budget, int wristSize, Timepiece timepiece) {
 
         mCoolness = Range.values()[coolness];
         mVisibility = Range.values()[visibility];
         mImpression = Range.values()[impression];
         mConvenience = Range.values()[convenience];
         mBudget = Range.values()[budget];
-        mUsage = Usage.values()[usage];
         mWristSize = WristSize.values()[wristSize];
         mTimepiece = timepiece;
-        mFavActivity = favActivity;
-        mFavDrink = favDrink;
 
         buildStyleScore();
     }
 
     private void buildStyleScore() {
         mStyleScore = mCoolness.ordinal() + mVisibility.ordinal() +
-                mImpression.ordinal() + mConvenience.ordinal() + mUsage.ordinal();
+                mImpression.ordinal() + mConvenience.ordinal();
 
     }
 
@@ -68,39 +62,18 @@ public class StyleAnalytics {
     }
 
     public String getProductRecommendation() {
-        String prodRec = "";
-        prodRec += "Watch face: " + mTimepiece.getWatchface().getShape().name() + "\n";
-        prodRec += "Watch type: " + mTimepiece.getWatchface().getType().name() + "\n";
-        prodRec += "Strap material: " + mTimepiece.getStrapMaterial().name() + "\n";
-        prodRec += "Usage: " + mUsage.name() + "\n";
-        prodRec +="Wrist size: " + mWristSize.name() + "\n";
+        JSONObject jsonProdRec = new JSONObject();
+        try {
+            jsonProdRec.put("collection", mTimepiece.getCollection().name());
+            jsonProdRec.put("shape", mTimepiece.getShape().name());
+            jsonProdRec.put("type", mTimepiece.getType().name());
+            jsonProdRec.put("strap", mTimepiece.getStrap().name());
+            jsonProdRec.put("wrist", mWristSize.name());
 
-        return prodRec;
-    }
-
-    public String getFavActivities() {
-        StringBuilder strBuilder = new StringBuilder();
-        int i = 0;
-        int size = mFavActivity.getActivities().size();
-        for (FavoriteActivity.Activity s : mFavActivity.getActivities()) {
-            strBuilder.append(s.name());
-            if (i < size-1)
-                strBuilder.append(", ");
+        } catch (JSONException e) {
+            Log.i(TAG, "JSONException: " + e.getMessage());
         }
 
-        return strBuilder.toString();
-    }
-
-    public String getFavDrinks() {
-        StringBuilder strBuilder = new StringBuilder();
-        int i = 0;
-        int size = mFavDrink.getDrinks().size();
-        for (FavoriteDrink.Drink d : mFavDrink.getDrinks()) {
-            strBuilder.append(d.name());
-            if (i < size-1)
-                strBuilder.append(", ");
-        }
-
-        return strBuilder.toString();
+        return jsonProdRec.toString();
     }
 }

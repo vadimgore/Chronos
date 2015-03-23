@@ -20,11 +20,10 @@ public class Timepiece {
     }
 
     enum Collection {
-        NONE,
         CARRERA,
         AQUARACER,
-        MONACO,
-        FORMULA1
+        FORMULA1,
+        MONACO
     }
 
     private Context mContext;

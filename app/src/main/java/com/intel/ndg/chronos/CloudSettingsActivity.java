@@ -12,6 +12,9 @@ public class CloudSettingsActivity extends ActionBarActivity {
     private EditText miFashionIP;
     private EditText miFashionPort;
 
+    private EditText mAdServerIP;
+    private EditText mAdServerPort;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,9 @@ public class CloudSettingsActivity extends ActionBarActivity {
         miFashionIP = (EditText) findViewById(R.id.ip_address);
         miFashionPort = (EditText) findViewById(R.id.port);
 
+        mAdServerIP = (EditText) findViewById(R.id.ad_server_ip_address);
+        mAdServerPort = (EditText) findViewById(R.id.ad_server_port);
+
         String ip_address = getIntent().getExtras().getString("@string/ip_address", "");
         if (!ip_address.equals(""))
             miFashionIP.setText(ip_address);
@@ -28,6 +34,15 @@ public class CloudSettingsActivity extends ActionBarActivity {
         String port = getIntent().getExtras().getString("@string/port", "");
         if (!port.equals(""))
             miFashionPort.setText(port);
+
+        String ad_server_ip_address = getIntent().getExtras().getString("@string/ad_server_ip_address", "");
+        if (!ip_address.equals(""))
+            mAdServerIP.setText(ad_server_ip_address);
+
+        String ad_server_port = getIntent().getExtras().getString("@string/ad_server_port", "");
+        if (!port.equals(""))
+            mAdServerPort.setText(ad_server_port);
+
     }
 
 

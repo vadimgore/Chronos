@@ -33,19 +33,46 @@
     </string-array>
 
     <string-array name="male_celebrity_choices">
-        <item>myself</item>
-        <item>Christiano Ronaldo</item>
-        <item>Tiger Woods</item>
         <item>Brad Pit</item>
+        <item>Christiano Ronaldo</item>
+        <item>Lewis Hamilton</item>
         <item>Sebastien Ogier</item>
     </string-array>
 
     <string-array name="female_celebrity_choices">
-        <item>myself</item>
-        <item>Mariya Sharapova</item>
-        <item>Cameron Diaz</item>
         <item>Uma Thurman</item>
+        <item>Cameron Diaz</item>
+        <item>Mariya Sharapova</item>
+        <item>Cara Delevingne</item>
     </string-array>
+
+    <string-array name="ad_titles">
+        <item>CARRERA</item>
+        <item>AQUARACER</item>
+        <item>FORMULA 1</item>
+        <item>MONACO</item>
+    </string-array>
+    <string-array name="ad_descriptions">
+        <item>The contemporary sports watch inspired by motor racing</item>
+        <item>The essential sports watch inspired by the aquatic world </item>
+        <item>It is worn by champion drivers who share our drive for excellence</item>
+        <item>The worlds first square automatic chronograph is a symbol of daring and excellence </item>
+    </string-array>
+
+    <string-array name="male_collection_links">
+        <item>http://www.tagheuer.com/int-en/tag-heuer-carrera/tag-heuer-carrera-models</item>
+        <item>http://www.tagheuer.com/int-en/aquaracer/aquaracer-models</item>
+        <item>http://www.tagheuer.com/int-en/tag-heuer-formula-1/tag-heuer-formula-1-models-519b64e6952b3</item>
+        <item>http://www.tagheuer.com/int-en/monaco/monaco-models</item>
+    </string-array>
+
+    <string-array name="female_collection_links">
+        <item>http://www.tagheuer.com/int-en/tag-heuer-carrera/tag-heuer-carrera-models-519b64f9dd292</item>
+        <item>http://www.tagheuer.com/int-en/aquaracer/aquaracer-models-519b64fcbcbd8</item>
+        <item>http://www.tagheuer.com/int-en/tag-heuer-formula-1/tag-heuer-formula-1-models</item>
+        <item>http://www.tagheuer.com/int-en/monaco/monaco-models-519b64ffc072f</item>
+    </string-array>
+
 
     <string name="edit_profile_action_label">Edit Profile</string>
     <string name="share_profile_action_label">Share Profile</string>
@@ -53,6 +80,9 @@
 
     <string name="ip_address">ip_address</string>
     <string name="port">port</string>
+    <string name="ad_server_ip_address">ad_server_ip_address</string>
+    <string name="ad_server_port">ad_server_port</string>
+
     <string name="concierge_api">concierge_api</string>
     <string name="consumer_api">consumer_api</string>
 

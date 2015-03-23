@@ -31,9 +31,9 @@ import java.util.UUID;
 
 public class MainActivity extends ActionBarActivity {
 
-    private Intent mBlesh;
-    private Intent mUserProfile;
-    private Intent mCloudSettings;
+    private Intent mBleshIntent;
+    private Intent mUserProfileIntent;
+    private Intent mCloudSettingsIntent;
 
     private static final String TAG = "Main Activity:";
     private static final int REQUEST_ENABLE_BT = 0;
@@ -43,10 +43,13 @@ public class MainActivity extends ActionBarActivity {
 
     private static final String BACKEND_IP_ADDRESS = "http://52.10.19.66";
     private static final String BACKEND_PORT = "8080";
+    private static final String AD_SERVER_IP_ADDRESS = "http://54.221.209.27";
+    private static final String AD_SERVER_PORT = "4242";
+
     private static final String CONCIERGE_API = "/concierge";
     private static final String CONSUMER_API = "/consumer";
     private static final String PROFILE_API = "/profile";
-    private static final String OFFERS_API = "/offers";
+    private static final String OFFERS_API = "/ad";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +126,12 @@ public class MainActivity extends ActionBarActivity {
                 editProfile();
                 return true;
             case R.id.action_cloud_settings:
-                mCloudSettings = new Intent(this, CloudSettingsActivity.class);
-                mCloudSettings.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
-                mCloudSettings.putExtra("@string/port", BACKEND_PORT);
-                startActivity(mCloudSettings);
+                mCloudSettingsIntent = new Intent(this, CloudSettingsActivity.class);
+                mCloudSettingsIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+                mCloudSettingsIntent.putExtra("@string/port", BACKEND_PORT);
+                mCloudSettingsIntent.putExtra("@string/ad_server_ip_address", AD_SERVER_IP_ADDRESS);
+                mCloudSettingsIntent.putExtra("@string/ad_server_port", AD_SERVER_PORT);
+                startActivity(mCloudSettingsIntent);
                 return true;
             case R.id.action_beacon:
                 if (mStyleConcierge == null)
@@ -172,31 +177,31 @@ public class MainActivity extends ActionBarActivity {
         Log.i(TAG, "startBlesh");
 
         // Customer specific initialization parameters
-        mBlesh = new Intent(this, Blesh.class);
-        mBlesh.putExtra("APIUser", "intel");
-        mBlesh.putExtra("APIKey", "RjKqGrNxEs");
-        mBlesh.putExtra("integrationType", "M");
-        mBlesh.putExtra("integrationId", "5033171751");
-        mBlesh.putExtra("pushToken", "");
-        mBlesh.putExtra("optionalKey", "5033171751");
+        mBleshIntent = new Intent(this, Blesh.class);
+        mBleshIntent.putExtra("APIUser", "intel");
+        mBleshIntent.putExtra("APIKey", "RjKqGrNxEs");
+        mBleshIntent.putExtra("integrationType", "M");
+        mBleshIntent.putExtra("integrationId", "5033171751");
+        mBleshIntent.putExtra("pushToken", "");
+        mBleshIntent.putExtra("optionalKey", "5033171751");
 
         // Start the Blesh service using the bundle you have just created
-        startService(mBlesh);
+        startService(mBleshIntent);
     }
 
     private void stopBlesh() {
         Log.i(TAG, "stopBlesh");
-        stopService(mBlesh);
+        stopService(mBleshIntent);
     }
 
     private void editProfile() {
         Log.i(TAG, "editProfile");
-        mUserProfile = new Intent(this, UserProfileActivity.class);
-        mUserProfile.putExtra("@string/consumer_id", mConsumerID.toString());
-        mUserProfile.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
-        mUserProfile.putExtra("@string/port", BACKEND_PORT);
-        mUserProfile.putExtra("@string/consumer_api", CONSUMER_API);
-        startActivity(mUserProfile);
+        mUserProfileIntent = new Intent(this, UserProfileActivity.class);
+        mUserProfileIntent.putExtra("@string/consumer_id", mConsumerID.toString());
+        mUserProfileIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
+        mUserProfileIntent.putExtra("@string/port", BACKEND_PORT);
+        mUserProfileIntent.putExtra("@string/consumer_api", CONSUMER_API);
+        startActivity(mUserProfileIntent);
     }
 
     private void buildNotification() {
@@ -284,9 +289,9 @@ public class MainActivity extends ActionBarActivity {
         Intent specialOffersIntent = new Intent(this, SpecialOffersActivity.class);
         specialOffersIntent.putExtra("@string/consumer_id", mConsumerID.toString());
         specialOffersIntent.putExtra("@string/concierge_id", mStyleConcierge.getID());
-        specialOffersIntent.putExtra("@string/ip_address", BACKEND_IP_ADDRESS);
-        specialOffersIntent.putExtra("@string/port", BACKEND_PORT);
-        specialOffersIntent.putExtra("@string/offers_api", OFFERS_API);
+        specialOffersIntent.putExtra("@string/ad_server_ip_address", AD_SERVER_IP_ADDRESS);
+        specialOffersIntent.putExtra("@string/ad_server_port", AD_SERVER_PORT);
+        specialOffersIntent.putExtra("@string/ad_server_api", OFFERS_API);
 
         PendingIntent specialOffersPendingIntent =
                 PendingIntent.getActivity(this, 0, specialOffersIntent, PendingIntent.FLAG_UPDATE_CURRENT);

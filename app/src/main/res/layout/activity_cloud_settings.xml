@@ -80,6 +80,71 @@
                 </EditText>
 
             </LinearLayout>
+
+            <TextView
+                android:text="AD SERVER SETTINGS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="@color/red">
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/red">
+            </View>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="IP address:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/red">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/ad_server_ip_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/ip_address_hint"
+                    android:textColorHint="@color/ltgray"
+                    android:inputType="text">
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="Port:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/red">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/ad_server_port"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/port_hint"
+                    android:textColorHint="@color/ltgray"
+                    android:inputType="text">
+                </EditText>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

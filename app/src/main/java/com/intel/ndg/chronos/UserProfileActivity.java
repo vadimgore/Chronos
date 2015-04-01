@@ -180,23 +180,23 @@ public class UserProfileActivity extends ActionBarActivity implements AdapterVie
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.checkbox_black_tea:
+            case R.id.checkbox_tea:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.black_tea);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.tea);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.black_tea);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.tea);
                 break;
-            case R.id.checkbox_green_tea:
+            case R.id.checkbox_chocolate:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.green_tea);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.chocolate);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.green_tea);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.chocolate);
                 break;
-            case R.id.checkbox_espresso:
+            case R.id.checkbox_coffee:
                 if (checked)
-                    mFavDrink.addDrink(FavoriteDrink.Drink.espresso);
+                    mFavDrink.addDrink(FavoriteDrink.Drink.coffee);
                 else
-                    mFavDrink.removeDrink(FavoriteDrink.Drink.espresso);
+                    mFavDrink.removeDrink(FavoriteDrink.Drink.coffee);
                 break;
             default:
                 break;

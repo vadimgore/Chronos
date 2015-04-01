@@ -116,6 +116,9 @@
 
     <string name="gender">gender</string>
     <string name="language">language</string>
+    <string name="title_activity_nfc_reader">nfc_reader</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

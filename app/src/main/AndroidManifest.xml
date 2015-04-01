@@ -14,6 +14,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -124,11 +129,24 @@
         </activity>
         <activity
             android:name=".SpecialOffersActivity"
-            android:label="@string/title_activity_special_offers"
             android:enabled="true"
             android:exported="true"
+            android:label="@string/title_activity_special_offers"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".nfc_reader"
+            android:label="@string/title_activity_nfc_reader"
+            android:theme="@android:style/Theme.NoDisplay">
+
+            <!-- Handle a NFC tag NDEF record -->
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <data android:mimeType="application/com.intel.ndg.chronos"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
         </activity>
     </application>
 

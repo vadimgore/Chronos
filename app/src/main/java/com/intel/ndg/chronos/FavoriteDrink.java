@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 public class FavoriteDrink {
     enum Drink {
-        black_tea,
-        green_tea,
-        latte,
-        espresso
+        tea,
+        chocolate,
+        coffee
     }
 
     ArrayList<Drink> mFavDrinks;

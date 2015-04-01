@@ -11,10 +11,12 @@
         android:background="@color/beige">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -183,20 +185,20 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp">
                 </TextView>
-                <CheckBox android:id="@+id/checkbox_black_tea"
+                <CheckBox android:id="@+id/checkbox_tea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="black tea"
+                    android:text="tea"
                     android:onClick="onFavDrinkCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_green_tea"
+                <CheckBox android:id="@+id/checkbox_chocolate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="green tea"
+                    android:text="chocolate"
                     android:onClick="onFavDrinkCheckboxClicked"/>
-                <CheckBox android:id="@+id/checkbox_espresso"
+                <CheckBox android:id="@+id/checkbox_coffee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="espresso"
+                    android:text="coffee"
                     android:onClick="onFavDrinkCheckboxClicked"/>
             </LinearLayout>
             <LinearLayout
@@ -231,7 +233,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:text="being interesting"
+                        android:text="being stylish"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -240,7 +242,7 @@
                         android:textSize="16dp"/>
 
                     <TextView
-                        android:text="being cool"
+                        android:text="being trendy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -287,7 +289,7 @@
                     android:baselineAligned="true"
                     android:orientation="vertical">
                     <TextView
-                        android:text="STYLE INSPIRATION"
+                        android:text="CELEBRITY INSPIRATION"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18dp"
